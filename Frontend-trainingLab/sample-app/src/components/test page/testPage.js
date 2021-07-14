@@ -73,13 +73,7 @@ function TestPage() {
             setAnswers("")
         }
     }
-    const decreaser = () => {
-        if (num > 0) {
-            setNum(num - 1)
-            setResponse("")
-            setAnswers("")
-        }
-    }
+
     const checker = () => {
         if (answers.length === 0) {
             setResponse("Please choose an option to continue")
