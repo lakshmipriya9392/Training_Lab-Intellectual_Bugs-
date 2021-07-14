@@ -42,18 +42,14 @@ const ReactPage = () => {
 
     const [reactCourses, setReactCourses] = useState([]);
 
-    const [video, setVideo] = useState('')
+    const [video, setVideo] = useState(""
+        // `${reactCourses[0].topics[0].videoURL}`
+    )
 
-    const [notes, setNotes] = useState(`
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    This is a dummy text.The video notes will appear here. This is a dummy text.The video notes will appear here.
-    `)
+
+    const [notes, setNotes] = useState(""
+        // `${reactCourses[0].topics[0].notesURL}`
+    )
 
     return (
 

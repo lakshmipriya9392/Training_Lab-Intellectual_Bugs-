@@ -13,7 +13,7 @@ const SummaryPage = () => {
     const getScore = () => {
         axios.post(`https://localhost:5001/test/score?id=${testId}&emailId=${emailShow}`)
             .then((res) => {
-                console.log("Response", res.data)
+                // console.log("Response", res.data)
                 if (res.data.totalCorrectAnswer === undefined) {
                     setData({ totalCorrectAnswer: 0, totalWrongAnswer: 0 })
                 }
@@ -47,7 +47,7 @@ const SummaryPage = () => {
                         </div>
                     </div>
                     <div className="w-96 border-yellow-500 border-2 rounded-lg h-auto my-5 order-1 lg:order-2">
-                        <div className="mx-5 my-4 text-xl text-center">Congratulations {nameShow} 🎊 🎊 🎊 </div>
+                        <div className="mx-5 my-4 text-xl text-center">Congratulations {nameShow} 🎉 🎉 🎉 </div>
                         <div className="mx-5 my-4 text-xl text-center"> You got {data.totalCorrectAnswer} out of {data.totalQuestion}</div>
                         <div className="mx-5 my-4 text-xl text-center">Total correct answers : {data.totalCorrectAnswer}</div>
                         <div className="mx-5 my-4 text-xl text-center">Total wrong answers : {data.totalWrongAnswer}</div>
