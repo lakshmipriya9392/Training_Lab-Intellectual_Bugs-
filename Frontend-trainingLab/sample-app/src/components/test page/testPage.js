@@ -208,7 +208,7 @@ function TestPage() {
                     </div>
                 </div > : <>
                     <h1 className="text-2xl text-center mt-64">Sorry, we don't have data for this question set</h1>
-                    <div className="flex justify-center my-16">
+                    <div className="flex justify-center my-8 mx-2">
                         <Link to='/testselection' className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-green-400 hover:border-green-500 hover:bg-green-100 duration-200 text-green-500  cursor-pointer">
                             Return to selection page
                         </Link>

@@ -4,7 +4,6 @@ import Navbar from '../navbar/navbar'
 import { motion } from 'framer-motion'
 import NavIcon from './../navbar icons/navbarIcon'
 import Accordion from './Course components/Accordion'
-import Play from './../../assets/play-button.png'
 import Footer from './../footer/footer'
 import axios from 'axios'
 import './../../App.css'
@@ -80,11 +79,15 @@ const ReactPage = () => {
                                 return (
                                     <Accordion key={headIndex} heading={prop.chapterName}>
                                         {prop.topics.map((Topic, childIndex) => {
+                                            const Setter = () => {
+                                                setVideo(Topic.videoURL)
+                                                setNotes(Topic.notesURL)
+                                            }
                                             return (
                                                 <motion.p
                                                     whileTap={{ fontWeight: "bold" }}
                                                     key={childIndex} className="w-full font-medium m-2"
-                                                    onClick={() => setVideo(Topic.videoURL)}>
+                                                    onClick={Setter}>
                                                     {Topic.topicName}
                                                 </motion.p>
                                             )
@@ -103,7 +106,9 @@ const ReactPage = () => {
 
                     <div className=" w-full md:mx-auto mx-10 h-full z-10 flex justify-center border-2">
 
-                        <video src={video} width="100%" height="100%" controls></video>
+                        <video src={video} width="100%"
+                            controls></video>
+
 
                     </div>
                     <div className="mt-10 w-auto">
