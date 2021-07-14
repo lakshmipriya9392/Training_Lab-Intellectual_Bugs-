@@ -31,7 +31,7 @@ namespace TrainingLab.Services
             }
             else
             {
-                CourseController.recordKey = "Chapter_" + DateTime.Now.ToString("yyyyMMdd_hh");
+                CourseController.recordKey = "Chapter_"+id+"_" + DateTime.Now.ToString("yyyyMMdd_hh");
                 List<ChapterModel> chapterModel =await GetCourseTopics(id);
                 return chapterModel;
             }
@@ -43,7 +43,7 @@ namespace TrainingLab.Services
             loadLocation = null;
             string recordKey = CourseController.recordKey;
             //Getting data from cache
-            chapterModel = await cache.GetRecordAsync<List<ChapterModel>>(recordKey);
+            chapterModel =  await cache.GetRecordAsync<List<ChapterModel>>(recordKey);
             if (chapterModel is null)
             {
                 try
@@ -120,7 +120,7 @@ namespace TrainingLab.Services
             loadLocation = null;
             string recordKey = CourseController.recordKey;
             //Getting data from cache
-            courseModel = await cache.GetRecordAsync<List<CourseModel>>(recordKey);
+            courseModel =  await cache.GetRecordAsync<List<CourseModel>>(recordKey);
             if (courseModel is null)
             {
                 try
