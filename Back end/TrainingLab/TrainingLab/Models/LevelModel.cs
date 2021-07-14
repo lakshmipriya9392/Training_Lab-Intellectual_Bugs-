@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace TrainingLab.Models
 {
-    public class OptionModel
+    public class LevelModel
     {
-        public int optionId { get; set; }
-        public string option { get; set; }
-
+        public int levelId { get; set; }
+        public string levelName { get; set; }
     }
 }
