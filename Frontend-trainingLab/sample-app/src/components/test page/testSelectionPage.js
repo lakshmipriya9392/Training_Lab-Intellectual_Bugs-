@@ -17,6 +17,7 @@ function TestSelectionPage() {
     const history = useHistory()
     const [course, setCourse] = useState("Select Course")
     const [difficulty, setDifficulty] = useState("Select Difficulty")
+    const [levelsetting, setLevelSetting] = useState([])
 
 
     const [subArr, setSubArr] = useState([])
@@ -28,24 +29,18 @@ function TestSelectionPage() {
                 console.log("Error", err)
             })
     }
+    const levels = () => {
+        axios.get("https://localhost:5001/test/getlevels")
+            .then((res) => {
+                setLevelSetting(res.data)
+            }).catch((err) => {
+                console.log("Error", err)
+            })
+    }
     useEffect(() => {
         subject()
+        levels()
     }, []);
-
-    const difficultySelection = [
-        {
-            id: 1,
-            difficulty: "Newbie"
-        },
-        {
-            id: 2,
-            difficulty: "Intermediate"
-        },
-        {
-            id: 3,
-            difficulty: "Ace"
-        }
-    ]
 
     const [checker, setChecker] = useState("")
 
@@ -89,15 +84,16 @@ function TestSelectionPage() {
 
                         <Accordion heading={difficulty}>
 
-                            {difficultySelection.map((prom) => {
-                                const setDifficultion = () => {
-                                    setDifficulty(prom.difficulty)
-                                    dispatch(difficultySetting(prom.difficulty))
+                            {levelsetting.map((prom) => {
+                                const difficultySelecting = () => {
+                                    setDifficulty(prom.levelName)
+                                    dispatch(difficultySetting(prom.levelName))
                                 }
                                 return (
-                                    <div key={prom.id} className="px-8 py-2 cursor-pointer" onClick={setDifficultion}>{prom.difficulty}</div>
+                                    <div key={prom.levelId} className="px-8 py-2 cursor-pointer" onClick={difficultySelecting} >{prom.levelName}</div>
                                 )
                             })}
+
 
                         </Accordion>
                     </div>

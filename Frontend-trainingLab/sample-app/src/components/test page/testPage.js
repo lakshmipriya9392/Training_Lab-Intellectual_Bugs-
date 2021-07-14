@@ -141,7 +141,7 @@ function TestPage() {
                                                     <motion.div
                                                         initial={{ width: 0, height: 0 }}
                                                         animate={(response === "CORRECT ANSWER!" || response === "WRONG ANSWER!") ? { width: "100%", height: "100%" } : { width: 0, height: 0 }}
-                                                        transition={{ type: "tween", duration: 0.1 }}
+                                                        transition={{ type: "tween", duration: 0.001 }}
                                                         className="absolute bg-transparent z-40 overflow-hidden">
                                                     </motion.div>
                                                     <div className=' px-5 py-3 z-20 '
