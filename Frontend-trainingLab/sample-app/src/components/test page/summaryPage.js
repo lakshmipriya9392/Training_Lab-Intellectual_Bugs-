@@ -35,24 +35,17 @@ const SummaryPage = () => {
             <div className="flex justify-center mt-6 my-4 w-screen">
                 <div className='flex justify-between m-5 flex-wrap font-serif w-9/12'>
                     <div className="md:w-6/12 w-96 rounded-lg h-auto my-5 order-2 lg:order-1 flex justify-center">
-                        {/* <div className=" text-lg"> */}
-                        {/* <div className="my-1">
-                                This is to bring to notice that {nameShow} has secured {data.totalCorrectAnswer} out of {data.totalQuestion} .
-                                Securing such score is an amazing achievement for anyone whoever is learning, especially through an online platform.
-                                We the team of Training Lab appreciates the effort made by {nameShow} for giving us time to make him/her educated in some field knowledge we are able to give.
-                                It doesn't matter what he/she scores, it doesn't define how knowledge he/she gets.The only thing which matter is the amount of knowledge he/she gets through out platform.
-                                That's why we are thankful to help {nameShow} in gaining some knowledge that we are able to give.
-                            </div> */}
-                        <img src={Duck} alt="" className='w-10/12 inline-block' />
-                        {/* <div className="float-right my-2 mx-1">- Regards, Team Training Lab</div> */}
 
-                        {/* </div> */}
+                        <img src={Duck} alt="" className='w-10/12 inline-block' />
+
                     </div>
-                    <div className="w-96 rounded-lg h-auto my-5 order-1 lg:order-2">
-                        <div className="mx-5 my-4 text-xl text-center">Congratulations {nameShow} 🎉 🎉 🎉 </div>
-                        <div className="mx-5 my-4 text-xl text-center"> You got {data.totalCorrectAnswer} out of {data.totalQuestion}</div>
-                        <div className="mx-5 my-4 text-xl text-center">Total correct answers : {data.totalCorrectAnswer}</div>
-                        <div className="mx-5 my-4 text-xl text-center">Total wrong answers : {data.totalWrongAnswer}</div>
+                    <div className="w-96 border-yellow-500 border-2 rounded-lg h-auto my-5 order-1 lg:order-2 flex justify-center flex-wrap">
+                        <div className="flex flex-col justify-center">
+                            <div className="mx-5 my-2 text-xl text-center">Congratulations {nameShow} 🎉 🎉 🎉 </div>
+                            <div className="mx-5 my-2 text-xl text-center"> You got {data.totalCorrectAnswer} out of {data.totalQuestion}</div>
+                            <div className="mx-5 my-2 text-xl text-center">Total correct answers : {data.totalCorrectAnswer}</div>
+                            <div className="mx-5 my-2 text-xl text-center">Total wrong answers : {data.totalWrongAnswer}</div>
+                        </div>
                     </div>
                 </div>
             </div>
