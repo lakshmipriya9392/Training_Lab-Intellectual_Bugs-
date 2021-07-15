@@ -91,7 +91,10 @@ function TestPage() {
 
     useEffect(() => {
         getQuestions()
+    }, [num])
 
+
+    useEffect(() => {
         const timer = setInterval(() => {
             if (sec > 0) {
                 setSec(sec - 1)
@@ -99,7 +102,6 @@ function TestPage() {
             else if (min === 0 && sec === 0) {
                 setSec(0)
                 setMin(0)
-                // alert("Opps! Time out")
             }
             else if (sec === 0) {
                 setSec(60)
@@ -107,8 +109,8 @@ function TestPage() {
             }
         }, 1000);
         return () => clearInterval(timer)
+    }, [sec])
 
-    }, [num, sec])
     return (
 
         <>
@@ -163,11 +165,11 @@ function TestPage() {
                                 </div>
                                 <div className="flex justify-around my-8">
                                     <div className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-red-400 hover:border-red-500 hover:bg-red-100 duration-200 text-red-500  cursor-pointer" onClick={() => history.push('/testselection')}>Leave</div>
-                                    {(!(min === 0 && sec === 0)) ?
+                                    {(!(min === 0 && sec === 0)) || num === 9 ?
                                         <>
                                             {(response === "CORRECT ANSWER!" || response === "WRONG ANSWER!") ?
                                                 <>
-                                                    <div className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-blue-400 hover:border-blue-500 hover:bg-blue-100 duration-200 text-blue-500  cursor-pointer" onClick={increaser} >Next</div>
+                                                    <div className={`md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium ${num === 9 ? "border-gray-400 text-gray-500" : "border-blue-400 hover:border-blue-500 text-blue-500 hover:bg-blue-100"}  duration-200 cursor-pointer`} onClick={increaser} >Next</div>
                                                 </>
                                                 :
                                                 <>
