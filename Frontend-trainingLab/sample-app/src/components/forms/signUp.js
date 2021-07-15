@@ -30,7 +30,6 @@ function SignUp() {
             setPassword("")
             setConfirmPassword("")
 
-            //Sending part goes here
             const url = 'https://localhost:5001/user/signup'
             var hash = crypto.createHash('md5').update(password).digest('hex');
             const details = {
@@ -38,19 +37,17 @@ function SignUp() {
                 emailId: email,
                 password: hash
             }
+            //Sending part
             axios.post(url, details).then(res => {
                 console.log(res)
                 setUser(res)
                 if (res.data.result !== null) {
-                    //res.data[0].result !== null
                     if (res.data.result === "False") {
-                        // res.data[0].result === "False"
                         setLoginSuccess(res.data.message)
                         setLoginSuccess(res.data.message)
                     } else {
                         history.push("/selection")
-                        //uncomment this only when the backend is running
-                        //Dispatch part will go here
+                        //Dispatch part 
                         dispatch(nameDisplay(name))
                         dispatch(emailsender(email))
                     }
@@ -83,6 +80,7 @@ function SignUp() {
             passwordError.Error = 'Password length is too short'
             valid = false
         }
+        //We have to change this code
         if ((!(password.includes("1"))) &&
             (!(password.includes("2"))) &&
             (!(password.includes("3"))) &&

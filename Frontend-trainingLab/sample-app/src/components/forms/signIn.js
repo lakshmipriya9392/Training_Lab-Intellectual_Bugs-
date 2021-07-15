@@ -24,33 +24,26 @@ function SignIn() {
             setEmail("")
             setPassword("")
 
-            // history.push('/selection')
-            //comment this only when the backend is running
-
-            //Sending part goes here
             var hash = crypto.createHash('md5').update(password).digest('hex');
             const data = {
                 emailId: email,
                 password: hash
             }
+            //Sending part
             axios.post('https://localhost:5001/user/login',
                 data
             )
                 .then(res => {
                     console.log(res)
                     if (res.data.result !== null) {
-                        //res.data[0].result !== null
                         if (res.data.result === "False") {
-                            // res.data[0].result === "False"
                             setLoginSuccess(res.data.message)
                             setLoginSuccess(res.data.message)
                         } else {
                             history.push("/selection")
-                            //uncomment this only when the backend is running
-                            //Dispatch part will go here
+                            //Dispatch part 
                             dispatch(nameDisplay(res.data.name))
                             dispatch(emailsender(email))
-                            // console.log(res.data)
                         }
 
                     }
@@ -67,6 +60,7 @@ function SignIn() {
             emailError.Error = 'You email must contain @'
             valid = false
         }
+        //We have to change this code
         if ((!(password.includes("1"))) &&
             (!(password.includes("2"))) &&
             (!(password.includes("3"))) &&

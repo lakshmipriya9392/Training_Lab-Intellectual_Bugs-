@@ -1,5 +1,4 @@
 import React from 'react'
-import BackImage from './../../assets/Background_design_(8).jpg'
 import TechImage from './../../assets/TechImage.jpeg'
 import TestImage from './../../assets/TestImage.png'
 import EventImage from './../../assets/EventImage.jpg'

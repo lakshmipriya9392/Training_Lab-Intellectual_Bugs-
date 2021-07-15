@@ -43,7 +43,6 @@ function TestPage() {
                             "testId": 0
                         }
                     )
-                    // console.log(TestData)
                 }
                 else {
                     setData(TestData)
@@ -56,7 +55,6 @@ function TestPage() {
     const getAnswers = () => {
         axios.post(`https://localhost:5001/test?id=${data.questionId}&emailId=${statmail}&answer=${answers}`)
             .then((res) => {
-                // console.log(res)
                 setResponse(res.data.message)
                 setCorrectAns(res.data.correctAnswer)
             }).catch((err) => {
@@ -86,7 +84,7 @@ function TestPage() {
 
 
     let [min, setMin] = useState(10)
-    let [sec, setSec] = useState(59)
+    let [sec, setSec] = useState(0)
 
 
     useEffect(() => {
@@ -104,7 +102,7 @@ function TestPage() {
                 setMin(0)
             }
             else if (sec === 0) {
-                setSec(60)
+                setSec(59)
                 setMin(min - 1)
             }
         }, 1000);
@@ -116,7 +114,6 @@ function TestPage() {
         <>
             {arrLen.length > 1 ?
                 <div className='relative top-0 left-0 right-0 bottom-0 flex justify-center'>
-                    {/* <div className="absolute top-6 left-20 cursor-pointer font-medium text-xl" onClick={decreaser}>⬅Back</div> */}
                     <div className="w-3/4 mt-10 h-auto">
                         <div className="text-center text-xl my-2">Welcome, {nameShow}</div>
 
