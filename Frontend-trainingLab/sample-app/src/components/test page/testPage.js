@@ -62,6 +62,16 @@ function TestPage() {
             })
     }
 
+    const cancelTest = () => {
+        axios.post(`https://localhost:5001/test/clearScore`)
+            .then((res) => {
+                history.push('/testselection')
+            }).catch((err) => {
+                console.log(err)
+            })
+
+    }
+
 
     const history = useHistory()
     const increaser = () => {
@@ -161,7 +171,7 @@ function TestPage() {
                                     </span>
                                 </div>
                                 <div className="flex justify-around my-8">
-                                    <div className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-red-400 hover:border-red-500 hover:bg-red-100 duration-200 text-red-500  cursor-pointer" onClick={() => history.push('/testselection')}>Leave</div>
+                                    <div className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-red-400 hover:border-red-500 hover:bg-red-100 duration-200 text-red-500  cursor-pointer" onClick={() => cancelTest()}>Leave</div>
                                     {(!(min === 0 && sec === 0)) || num === 9 ?
                                         <>
                                             {(response === "CORRECT ANSWER!" || response === "WRONG ANSWER!") ?

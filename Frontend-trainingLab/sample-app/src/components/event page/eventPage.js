@@ -74,7 +74,7 @@ function EventPage() {
     return (
         <div>
             <Navbar >
-                <NavIcon colorC="text-black" colorSecC='text-black font-semibold' />
+                <NavIcon colorC="text-black" colorSecC='border-indigo-500 text-gray-800 bg-gray-50' />
             </Navbar>
             <div className="sticky top-0 left-0 right-0 bg-blue-400 flex text-center text-xl text-white">
                 <div

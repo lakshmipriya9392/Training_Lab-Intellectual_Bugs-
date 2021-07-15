@@ -33,7 +33,7 @@ function CoursesPage() {
     return (
         <div className='relative top-0 right-0 left-0 bottom-0 bg-blue-300 '>
             <Navbar>
-                <NavIcon colorA="text-black" colorSecA='text-black font-semibold' />
+                <NavIcon colorA="text-black" colorSecA='border-indigo-500 text-gray-800 bg-gray-50' />
             </Navbar>
 
             <div className="flex flex-wrap justify-center items-center bg-transparent z-10 p-5">

@@ -56,7 +56,7 @@ function TestSelectionPage() {
     return (
         <div className="">
             <Navbar>
-                <NavIcon colorB="text-black" colorSecB="text-black font-semibold" />
+                <NavIcon colorB="text-black" colorSecB="border-indigo-500 text-gray-800 bg-gray-50" />
             </Navbar>
             <div className="flex justify-center">
                 <div className="flex md:justify-around justify-center md:items-stretch items-center md:flex-row flex-col mb-20 w-11/12 md:mt-16 mt-0">
@@ -120,7 +120,7 @@ function TestSelectionPage() {
                     <img
                         src={SideImage}
                         alt=""
-                        className=" h-96 w-96  order-1 md:order-2"
+                        className="h-96 w-96  order-1 md:order-2"
                     />
                 </div>
             </div>

@@ -48,7 +48,7 @@ const ReactPage = () => {
         <div>
 
             <Navbar>
-                <NavIcon colorA="text-black" colorSecA='text-black font-semibold' />
+                <NavIcon colorA="text-black" colorSecA='border-indigo-500 text-gray-800 bg-gray-50' />
             </Navbar>
 
             <div className="flex md:justify-between justify-center flex-col md:flex-row bg-no-repeat bg-cover mt-0 md:mt-24 md:mx-10 mx-0 mb-10" >
