@@ -29,7 +29,6 @@ function CoursesPage() {
     }, [])
 
     const history = useHistory({});
-    // const [num, setNum] = useState(0)
 
     return (
         <div className='relative top-0 right-0 left-0 bottom-0 bg-blue-300 '>

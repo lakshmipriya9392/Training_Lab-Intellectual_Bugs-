@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import notification from './../../assets/notification.png'
 import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 
 function navbarIcon(props) {
     const state = useSelector(state => state.change)
-    let notificationCount = 211
-    let conditioner = '/events'
     const [nav, openNav] = useState(false)
     const changer = () => {
         if (nav) {
@@ -43,19 +40,8 @@ function navbarIcon(props) {
                 </div>
             </div>
             <div className="md:hidden block text-xl my-auto font-black cursor-pointer z-50" onClick={changer}>☰</div>
-            {/* 
-            <Link to={conditioner}>
-                <div className="flex">
-                    <img src={notification} alt="notification" className="cursor-pointer w-8 h-8 my-auto" />
-                    <span className="flex flex-col text-sm rounded-full text-white font-semibold">
-                        <span className='flex justify-center bg-red-500 rounded-full px-1 border-2 border-white'>{notificationCount}</span>
-                    </span>
-                </div>
-            </Link> */}
-
 
             <motion.div
-                // animate={nav ? { height: '100%', width: '64%' } : null}
                 initial={{ width: 0, height: "100%" }}
                 animate={{ width: nav ? "64%" : 0, height: "100%" }}
                 transition={{ duration: 0.15 }}
@@ -69,7 +55,6 @@ function navbarIcon(props) {
                     className="flex flex-col justify-center" >
                     <div className="mt-16 md:text-2xl text-xl pb-3 text-center">Hello, {state}</div>
 
-                    {/* <div className="mt-5 border-t-2 border-b-2 p-3">These are all the pages</div> */}
 
                     <Link to='/courses' className={props.colorSecA}>
                         <p className="px-2 py-4 mx-1 cursor-pointer  text-xl">Courses</p>

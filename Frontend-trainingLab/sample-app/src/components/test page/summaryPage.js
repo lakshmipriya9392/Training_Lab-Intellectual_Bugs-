@@ -14,8 +14,6 @@ const SummaryPage = () => {
     const getScore = () => {
         axios.post(`https://localhost:5001/test/score?id=${testId}&emailId=${emailShow}`)
             .then((res) => {
-                // console.log("Response", res.data)
-                // setData(res.data)
                 if (res.data.totalCorrectAnswer === undefined) {
                     setData({ totalCorrectAnswer: 0, totalWrongAnswer: 0 })
                 }
