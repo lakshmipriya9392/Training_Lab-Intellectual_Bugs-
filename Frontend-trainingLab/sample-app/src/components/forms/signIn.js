@@ -5,7 +5,7 @@ import './../../App.css'
 import Navbar from './../navbar/navbar'
 import { useDispatch } from 'react-redux'
 import { nameDisplay } from './../redux/NameDisplay'
-import { emailsender } from './../redux/NameDisplay'
+import { emailsender } from './../redux/emailGet'
 
 function SignIn() {
 

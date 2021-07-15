@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/courses" component={CoursePage} />
         <Route exact path='/events' component={EventPage} />
         <Route exact path="/test" component={TestPage} />
-        <Route exact path='/courses/1' component={CourseMainPage} />
+        <Route exact path='/courses/courseMainPage' component={CourseMainPage} />
         <Route exact path='/selection' component={SelectionPage} />
         <Route exact path='/testselection' component={TestSelectionPage} />
         <Route exact path='/test/summary' component={TestSummary} />

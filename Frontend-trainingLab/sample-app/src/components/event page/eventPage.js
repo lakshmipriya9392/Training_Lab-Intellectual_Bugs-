@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import './../../App.css'
-// import Share from './../../assets/share.png'
 import Navbar from './../navbar/navbar'
 import NavIcon from './../navbar icons/navbarIcon'
 import Accordion from './../courses page/Course components/Accordion'
 import Button from './eventButton'
 import Footer from './../footer/footer'
-import { motion } from 'framer-motion'
-import { auto } from 'async'
 import axios from 'axios'
 import EventIcon from '@material-ui/icons/Event';
 import ShareIcon from '@material-ui/icons/Share';

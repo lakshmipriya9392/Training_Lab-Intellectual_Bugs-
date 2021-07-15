@@ -7,7 +7,7 @@ import NavIcon from './../navbar icons/navbarIcon'
 import Footer from './../footer/footer'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { courseNum } from './../redux/NameDisplay'
+import { courseNum } from './../redux/courseNumGet'
 
 function CoursesPage() {
 
@@ -40,7 +40,7 @@ function CoursesPage() {
 
                 {courses.map((data) => {
                     const pusher = () => {
-                        history.push(`/courses/1`)
+                        history.push(`/courses/courseMainPage`)
                         dispatch(courseNum(data.courseId))
                     }
                     return (

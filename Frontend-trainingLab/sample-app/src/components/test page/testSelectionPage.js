@@ -7,7 +7,8 @@ import SideImage from "./../../assets/animation_640_kr4k95pb.gif";
 import Footer from "./../footer/footer";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { courseSelector, difficultySetting } from "./../redux/NameDisplay";
+import { difficultySetting } from "./../redux/courseDifficultyGet";
+import { courseSelector } from "../redux/courseNameGet";
 import axios from "axios";
 
 function TestSelectionPage() {

@@ -4,7 +4,7 @@ import Navbar from './../navbar/navbar'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { nameDisplay } from './../redux/NameDisplay'
-import { emailsender } from './../redux/NameDisplay'
+import { emailsender } from './../redux/emailGet'
 
 function SignUp() {
 
