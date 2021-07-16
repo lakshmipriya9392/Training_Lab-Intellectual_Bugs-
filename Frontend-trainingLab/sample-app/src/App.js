@@ -11,6 +11,7 @@ import SelectionPage from './components/selectionPage/selectionPage'
 import CourseMainPage from './components/coursesPage/CourseMainPage';
 import TestSelectionPage from './components/testPage/testSelectionPage'
 import TestSummary from './components/testPage/summaryPage'
+import Protection from './protection';
 
 function App() {
   return (
@@ -21,13 +22,28 @@ function App() {
         <Route exact path="/" component={FrontPage} />
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/courses" component={CoursePage} />
-        <Route exact path='/events' component={EventPage} />
-        <Route exact path="/test" component={TestPage} />
-        <Route exact path='/courses/courseMainPage' component={CourseMainPage} />
-        <Route exact path='/selection' component={SelectionPage} />
-        <Route exact path='/testselection' component={TestSelectionPage} />
-        <Route exact path='/test/summary' component={TestSummary} />
+        <Route exact path="/courses">
+          <Protection comp={CoursePage} />
+        </Route>
+        <Route exact path="/events">
+          <Protection comp={EventPage} />
+        </Route>
+        <Route exact path="/test"  >
+          <Protection comp={TestPage} />
+        </Route>
+        <Route exact path="/courses/courseMainPage" >
+          <Protection comp={CourseMainPage} />
+        </Route>
+        <Route exact path="/selection"  >
+          <Protection comp={SelectionPage} />
+        </Route>
+        <Route exact path="/testselection"  >
+          <Protection comp={TestSelectionPage} />
+        </Route>
+        <Route exact path="/test/summary"  >
+          <Protection comp={TestSummary} />
+        </Route>
+
       </Switch>
     </React.Fragment>
   )

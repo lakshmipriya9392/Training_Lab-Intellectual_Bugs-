@@ -28,7 +28,7 @@ function EventPage() {
     }
 
     const getFutureEvents = () => {
-        axios.get(`${url}event/FutureEvents`)
+        axios.get(`${url}event/futureEvents`)
             .then((response) => {
                 const allEvents = response.data;
                 setFutureEvents(allEvents);
@@ -42,7 +42,7 @@ function EventPage() {
     }
 
     const sendBookingData = () => {
-        axios.post("https://localhost:5001/event/addattendee", details)
+        axios.post("https://localhost:5001/event/attendee", details)
             .then((res) => {
                 console.log(res)
             }).catch((err) => {

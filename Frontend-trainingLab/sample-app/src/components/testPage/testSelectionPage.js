@@ -33,7 +33,7 @@ function TestSelectionPage() {
     const levels = () => {
         axios
             //Change getlevels to levels
-            .get("https://localhost:5001/test/getlevels")
+            .get("https://localhost:5001/test/level")
             .then((res) => {
                 setLevelSetting(res.data);
             })
