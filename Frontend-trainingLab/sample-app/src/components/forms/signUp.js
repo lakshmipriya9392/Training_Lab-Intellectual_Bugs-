@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom'
 import Navbar from '../Navbar/navbar'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { emailsender } from '../Redux/Form/formActions'
-import { nameDisplay } from '../Redux/Form/formActions'
+import { emailsender } from '../Redux/Form/formAction'
+import { nameDisplay } from '../Redux/Form/formAction'
 
 function SignUp() {
 

@@ -1,4 +1,4 @@
-import { courseSelector, difficultySetting, courseNum } from "./courseActions"
+import { courseSelector, difficultySetting, courseNum } from "./courseAction"
 //The below part is reducer for selecting course
 
 const initialState = 1

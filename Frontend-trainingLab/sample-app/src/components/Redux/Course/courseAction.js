@@ -1,4 +1,4 @@
-import { courseNameReducer, difficultyReducer, courseIdReducer } from "./courseReducers"
+import { courseNameReducer, difficultyReducer, courseIdReducer } from "./courseReducer"
 //The below part is action for selecting course
 
 export const courseSelector = (show) => {

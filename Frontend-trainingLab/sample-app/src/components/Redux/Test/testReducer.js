@@ -1,4 +1,4 @@
-import { testIdSetting } from "./testActions"
+import { testIdSetting } from "./testAction"
 //The below part is reducer for selecting test id
 
 const initialState = 0

@@ -4,8 +4,8 @@ import { useHistory } from 'react-router-dom'
 import './../../App.css'
 import Navbar from '../Navbar/navbar'
 import { useDispatch } from 'react-redux'
-import { emailsender } from '../Redux/Form/formActions'
-import { nameDisplay } from '../Redux/Form/formActions'
+import { emailsender } from '../Redux/Form/formAction'
+import { nameDisplay } from '../Redux/Form/formAction'
 function SignIn() {
 
     const dispatch = useDispatch()

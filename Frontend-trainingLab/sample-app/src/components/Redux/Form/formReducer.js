@@ -1,4 +1,4 @@
-import { emailsender, nameDisplay } from './formActions'
+import { emailsender, nameDisplay } from './formAction'
 //The below part is reducer send email
 
 const initialState = ""

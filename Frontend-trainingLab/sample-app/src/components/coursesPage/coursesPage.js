@@ -7,7 +7,7 @@ import NavIcon from '../navbarIcons/navbarIcon'
 import Footer from '../Footer/footer'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { courseSelector } from '../Redux/Course/courseActions'
+import { courseSelector } from '../Redux/Course/courseAction'
 
 function CoursesPage() {
 
