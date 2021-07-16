@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import Navbar from './../navbar/navbar'
+import Navbar from '../Navbar/navbar'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { nameDisplay } from './../redux/NameDisplay'
-import { emailsender } from './../redux/NameDisplay'
+import { emailsender } from '../Redux/Form/formAction'
+import { nameDisplay } from '../Redux/Form/formAction'
 
 function SignUp() {
 
@@ -20,6 +20,7 @@ function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [confirmPasswordErr, setConfirmPasswordErr] = useState({})
     const [loginSuccess, setLoginSuccess] = useState(false)
+
     var crypto = require('crypto');
     const SubmitForm = (e) => {
         e.preventDefault()

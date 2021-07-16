@@ -6,19 +6,20 @@ import Duck from './../../assets/animation_640_kr36bvfc.gif'
 import axios from 'axios'
 
 const SummaryPage = () => {
-    const nameShow = useSelector(state => state.change)
-    const emailShow = useSelector(state => state.change3)
-    const testId = useSelector(state => state.change6)
-    const [data, setData] = useState({})
+    const userName = useSelector(state => state.userNameReducer)
+    const email = useSelector(state => state.emailIdReducer)
+    const testId = useSelector(state => state.testIdReducer)
+    const [data, setData] = useState({ score: 0 })
 
     const getScore = () => {
-        axios.post(`https://localhost:5001/test/score?id=${testId}&emailId=${emailShow}`)
+        axios.post(`https://localhost:5001/test/score?id=${testId}&emailId=${email}`)
             .then((res) => {
                 if (res.data.totalCorrectAnswer === undefined) {
                     setData({ totalCorrectAnswer: 0, totalWrongAnswer: 0 })
                 }
                 else {
                     setData(res.data)
+                    console.log(res.data)
                 }
             }).catch((err) => {
                 console.log("Error", err)
@@ -40,7 +41,7 @@ const SummaryPage = () => {
                     </div>
                     <div className="w-96 border-yellow-500 border-2 rounded-lg h-auto my-5 order-1 lg:order-2 flex justify-center flex-wrap">
                         <div className="flex flex-col justify-center">
-                            <div className="mx-5 my-2 text-xl text-center">Congratulations {nameShow} 🎉 🎉 🎉 </div>
+                            <div className="mx-5 my-2 text-xl text-center">Congratulations {userName} 🎉 🎉 🎉 </div>
                             <div className="mx-5 my-2 text-xl text-center"> You got {data.totalCorrectAnswer} out of {data.totalQuestion}</div>
                             <div className="mx-5 my-2 text-xl text-center">Total correct answers : {data.totalCorrectAnswer}</div>
                             <div className="mx-5 my-2 text-xl text-center">Total wrong answers : {data.totalWrongAnswer}</div>

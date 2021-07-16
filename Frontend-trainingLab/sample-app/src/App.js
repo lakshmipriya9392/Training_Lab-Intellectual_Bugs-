@@ -1,16 +1,16 @@
 import React from 'react'
 import './App.css'
 import { Switch, Route } from "react-router-dom";
-import FrontPage from './components/front page/frontPage'
-import EventPage from './components/event page/eventPage'
-import TestPage from './components/test page/testPage'
-import CoursePage from './components/courses page/coursesPage'
-import SignIn from './components/forms/signIn'
-import SignUp from './components/forms/signUp'
-import SelectionPage from './components/Selection Page/SelectionPage'
-import CourseMainPage from './components/courses page/CourseMainPage';
-import TestSelectionPage from './components/test page/testSelectionPage'
-import TestSummary from './components/test page/summaryPage'
+import FrontPage from './components/frontPage/frontPage'
+import EventPage from './components/eventPage/eventPage'
+import TestPage from './components/testPage/testPage'
+import CoursePage from './components/coursesPage/coursesPage'
+import SignIn from './components/Forms/signIn'
+import SignUp from './components/Forms/signUp'
+import SelectionPage from './components/selectionPage/selectionPage'
+import CourseMainPage from './components/coursesPage/CourseMainPage';
+import TestSelectionPage from './components/testPage/testSelectionPage'
+import TestSummary from './components/testPage/summaryPage'
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
         <Route exact path="/courses" component={CoursePage} />
         <Route exact path='/events' component={EventPage} />
         <Route exact path="/test" component={TestPage} />
-        <Route exact path='/courses/1' component={CourseMainPage} />
+        <Route exact path='/courses/courseMainPage' component={CourseMainPage} />
         <Route exact path='/selection' component={SelectionPage} />
         <Route exact path='/testselection' component={TestSelectionPage} />
         <Route exact path='/test/summary' component={TestSummary} />

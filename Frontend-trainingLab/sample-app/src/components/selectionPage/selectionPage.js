@@ -2,17 +2,15 @@ import React from 'react'
 import TechImage from './../../assets/TechImage.jpeg'
 import TestImage from './../../assets/TestImage.png'
 import EventImage from './../../assets/EventImage.jpg'
-import NavIcon from './../navbar icons/navbarIcon'
+import NavIcon from '../navbarIcons/navbarIcon'
 import { motion } from 'framer-motion'
-import Navbar from './../navbar/navbar'
+import Navbar from '../Navbar/navbar'
 import { Link } from 'react-router-dom'
-import Footer from './../footer/footer'
+import Footer from '../Footer/footer'
 
 function SelectionPage() {
     return (
         <div className="relative w-full h-full bg-blue-300">
-
-            {/* <img src={BackImage} alt="" className='absolute top-0 bottom-0 left-0 right-0 w-screen h-screen mx-auto mt-0 z-0' /> */}
 
             <Navbar>
                 <NavIcon />

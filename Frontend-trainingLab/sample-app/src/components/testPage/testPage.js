@@ -3,16 +3,20 @@ import { Link, useHistory } from 'react-router-dom'
 import axios from "axios"
 import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
-import { testIdSetting } from './../redux/NameDisplay'
+import { courseNum } from '../Redux/Course/courseAction'
 import { useDispatch } from 'react-redux'
 
 function TestPage() {
     const dispatch = useDispatch()
-    const nameShow = useSelector(state => state.change)
-    const statmail = useSelector(state => state.change3)
-    const state = useSelector(state => state.change4)
-    const stateSec = useSelector(state => state.change5)
+    const userName = useSelector(state => state.userNameReducer)
+    const email = useSelector(state => state.emailIdReducer)
+    const testId = useSelector(state => state.testIdReducer)
+    const difficulty = useSelector(state => state.difficultyReducer)
     const [arrLen, setArrLen] = useState(0)
+    const [num, setNum] = useState(0)
+    const [answers, setAnswers] = useState('')
+    const [correctAns, setCorrectAns] = useState("")
+    const [response, setResponse] = useState()
     const [data, setData] = useState(
         {
             optionList: [
@@ -21,12 +25,11 @@ function TestPage() {
 
         }
     )
-    const [num, setNum] = useState(0)
-    const [answers, setAnswers] = useState('')
-    const [correctAns, setCorrectAns] = useState("")
-    const [response, setResponse] = useState()
+    const [min, setMin] = useState(10)
+    const [sec, setSec] = useState(0)
+
     const getQuestions = () => {
-        axios.get(`https://localhost:5001/test?id=${state}&levelName=${stateSec}`)
+        axios.get(`https://localhost:5001/test?id=${testId}&levelName=${difficulty}`)
             .then((res) => {
                 const TestData = res.data[num];
                 setArrLen(res.data)
@@ -46,20 +49,30 @@ function TestPage() {
                 }
                 else {
                     setData(TestData)
-                    dispatch(testIdSetting(res.data[num].testId))
+                    dispatch(courseNum(res.data[num].testId))
                 }
 
             }).catch((err) => { console.log(`Error : ${err}`) })
     }
 
     const getAnswers = () => {
-        axios.post(`https://localhost:5001/test?id=${data.questionId}&emailId=${statmail}&answer=${answers}`)
+        axios.post(`https://localhost:5001/test?id=${data.questionId}&emailId=${email}&answer=${answers}`)
             .then((res) => {
                 setResponse(res.data.message)
                 setCorrectAns(res.data.correctAnswer)
             }).catch((err) => {
                 console.log(err)
             })
+    }
+
+    const cancelTest = () => {
+        axios.post(`https://localhost:5001/test/clearScore`)
+            .then((res) => {
+                history.push('/testselection')
+            }).catch((err) => {
+                console.log(err)
+            })
+
     }
 
 
@@ -83,8 +96,6 @@ function TestPage() {
     }
 
 
-    let [min, setMin] = useState(10)
-    let [sec, setSec] = useState(0)
 
 
     useEffect(() => {
@@ -115,7 +126,7 @@ function TestPage() {
             {arrLen.length > 1 ?
                 <div className='relative top-0 left-0 right-0 bottom-0 flex justify-center'>
                     <div className="w-3/4 mt-10 h-auto">
-                        <div className="text-center text-xl my-2">Welcome, {nameShow}</div>
+                        <div className="text-center text-xl my-2">Welcome, {userName}</div>
 
                         <div className="w-full">
                             <div className="text-center text-2xl mb-2 mx-5">Question: {num + 1}</div>
@@ -161,7 +172,7 @@ function TestPage() {
                                     </span>
                                 </div>
                                 <div className="flex justify-around my-8">
-                                    <div className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-red-400 hover:border-red-500 hover:bg-red-100 duration-200 text-red-500  cursor-pointer" onClick={() => history.push('/testselection')}>Leave</div>
+                                    <div className="md:w-3/12 w-32 mx-5 text-center rounded-lg border-2 p-2 bg-white font-medium border-red-400 hover:border-red-500 hover:bg-red-100 duration-200 text-red-500  cursor-pointer" onClick={() => cancelTest()}>Leave</div>
                                     {(!(min === 0 && sec === 0)) || num === 9 ?
                                         <>
                                             {(response === "CORRECT ANSWER!" || response === "WRONG ANSWER!") ?

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./../navbar/navbar";
+import Navbar from "./../Navbar/navbar";
 import "./../../App.css";
-import NavIcon from "./../navbar icons/navbarIcon";
-import Accordion from "./../courses page/Course components/Accordion";
+import NavIcon from "./../navbarIcons/navbarIcon";
+import Accordion from "./../coursesPage/courseComponents/Accordion";
 import SideImage from "./../../assets/animation_640_kr4k95pb.gif";
-import Footer from "./../footer/footer";
+import Footer from "./../Footer/footer";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { courseSelector, difficultySetting } from "./../redux/NameDisplay";
+import { testIdSetting } from "../Redux/Test/testAction";
+import { difficultySetting } from "../Redux/Course/courseAction";
 import axios from "axios";
 
 function TestSelectionPage() {
@@ -16,8 +17,9 @@ function TestSelectionPage() {
     const [course, setCourse] = useState("Select Course");
     const [difficulty, setDifficulty] = useState("Select Difficulty");
     const [levelsetting, setLevelSetting] = useState([]);
-
+    const [checker, setChecker] = useState("");
     const [subArr, setSubArr] = useState([]);
+
     const subject = () => {
         axios
             .get("https://localhost:5001/course")
@@ -43,7 +45,6 @@ function TestSelectionPage() {
         levels();
     }, []);
 
-    const [checker, setChecker] = useState("");
 
     const testProceed = () => {
         if (course !== "Select Course" && difficulty !== "Select Difficulty") {
@@ -56,7 +57,7 @@ function TestSelectionPage() {
     return (
         <div className="">
             <Navbar>
-                <NavIcon colorB="text-black" colorSecB="text-black font-semibold" />
+                <NavIcon colorB="text-black" colorSecB="border-indigo-500 text-gray-800 bg-gray-50" />
             </Navbar>
             <div className="flex justify-center">
                 <div className="flex md:justify-around justify-center md:items-stretch items-center md:flex-row flex-col mb-20 w-11/12 md:mt-16 mt-0">
@@ -67,7 +68,7 @@ function TestSelectionPage() {
                                 {subArr.map((prop) => {
                                     const click = () => {
                                         setCourse(prop.courseName);
-                                        dispatch(courseSelector(prop.courseId));
+                                        dispatch(testIdSetting(prop.courseId));
                                     };
                                     return (
                                         <div
@@ -120,7 +121,7 @@ function TestSelectionPage() {
                     <img
                         src={SideImage}
                         alt=""
-                        className=" h-96 w-96  order-1 md:order-2"
+                        className="h-96 w-96  order-1 md:order-2"
                     />
                 </div>
             </div>

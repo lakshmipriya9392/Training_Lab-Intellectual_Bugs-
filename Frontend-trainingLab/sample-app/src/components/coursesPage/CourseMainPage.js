@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../navbar/navbar'
+import Navbar from '../Navbar/navbar'
 import { motion } from 'framer-motion'
-import NavIcon from '../navbar icons/navbarIcon'
-import Accordion from './Course components/Accordion'
-import Footer from '../footer/footer'
+import NavIcon from '../navbarIcons/navbarIcon'
+import Accordion from './courseComponents/Accordion'
+import Footer from '../Footer/footer'
 import axios from 'axios'
 import './../../App.css'
 import { useSelector } from 'react-redux'
 
 const ReactPage = () => {
-    const state = useSelector(state => state.change2)
+    const state = useSelector(state => state.courseNameReducer)
     const [nav, openNav] = useState(false)
+    const url = "https://localhost:5001/";
+    const [reactCourses, setReactCourses] = useState([]);
+    const [video, setVideo] = useState("")
+    const [notes, setNotes] = useState("")
+
     const changer = () => {
         if (nav) {
             openNav(false)
@@ -20,7 +25,6 @@ const ReactPage = () => {
         }
     }
 
-    const url = "https://localhost:5001/";
 
     const getReact = () => {
         axios.get(`${url}course?id=${state}`)
@@ -36,19 +40,13 @@ const ReactPage = () => {
         getReact()
     }, []);
 
-    const [reactCourses, setReactCourses] = useState([]);
-
-    const [video, setVideo] = useState("")
-
-
-    const [notes, setNotes] = useState("")
 
     return (
 
         <div>
 
             <Navbar>
-                <NavIcon colorA="text-black" colorSecA='text-black font-semibold' />
+                <NavIcon colorA="text-black" colorSecA='border-indigo-500 text-gray-800 bg-gray-50' />
             </Navbar>
 
             <div className="flex md:justify-between justify-center flex-col md:flex-row bg-no-repeat bg-cover mt-0 md:mt-24 md:mx-10 mx-0 mb-10" >

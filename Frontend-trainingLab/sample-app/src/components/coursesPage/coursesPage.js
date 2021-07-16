@@ -1,16 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './../../App.css'
-import Navbar from './../navbar/navbar'
+import Navbar from '../Navbar/navbar'
 import { motion } from 'framer-motion'
 import { useHistory } from "react-router-dom"
-import NavIcon from './../navbar icons/navbarIcon'
-import Footer from './../footer/footer'
+import NavIcon from '../navbarIcons/navbarIcon'
+import Footer from '../Footer/footer'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { courseNum } from './../redux/NameDisplay'
+import { courseSelector } from '../Redux/Course/courseAction'
 
 function CoursesPage() {
 
+    const history = useHistory();
     const dispatch = useDispatch()
     const [courses, setCourses] = useState([])
 
@@ -28,20 +29,19 @@ function CoursesPage() {
         getCourses()
     }, [])
 
-    const history = useHistory({});
 
     return (
         <div className='relative top-0 right-0 left-0 bottom-0 bg-blue-300 '>
             <Navbar>
-                <NavIcon colorA="text-black" colorSecA='text-black font-semibold' />
+                <NavIcon colorA="text-black" colorSecA='border-indigo-500 text-gray-800 bg-gray-50' />
             </Navbar>
 
             <div className="flex flex-wrap justify-center items-center bg-transparent z-10 p-5">
 
                 {courses.map((data) => {
                     const pusher = () => {
-                        history.push(`/courses/1`)
-                        dispatch(courseNum(data.courseId))
+                        history.push(`/courses/courseMainPage`)
+                        dispatch(courseSelector(data.courseId))
                     }
                     return (
                         <motion.div
