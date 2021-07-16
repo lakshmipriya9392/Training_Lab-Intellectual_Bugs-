@@ -5,13 +5,13 @@ import FrontPage from './components/frontPage/frontPage'
 import EventPage from './components/eventPage/eventPage'
 import TestPage from './components/testPage/testPage'
 import CoursePage from './components/coursesPage/coursesPage'
-import SignIn from './components/Forms/signIn'
-import SignUp from './components/Forms/signUp'
+import SignIn from './components/forms/signIn'
+import SignUp from './components/forms/signUp'
 import SelectionPage from './components/selectionPage/selectionPage'
-import CourseMainPage from './components/coursesPage/CourseMainPage';
+import CourseMainPage from './components/coursesPage/courseMainPage';
 import TestSelectionPage from './components/testPage/testSelectionPage'
 import TestSummary from './components/testPage/summaryPage'
-import Protection from './protection';
+import PrivateRoute from './privateRoute';
 
 function App() {
   return (
@@ -23,25 +23,25 @@ function App() {
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/courses">
-          <Protection comp={CoursePage} />
+          <PrivateRoute comp={CoursePage} />
         </Route>
         <Route exact path="/events">
-          <Protection comp={EventPage} />
+          <PrivateRoute comp={EventPage} />
         </Route>
         <Route exact path="/test"  >
-          <Protection comp={TestPage} />
+          <PrivateRoute comp={TestPage} />
         </Route>
         <Route exact path="/courses/courseMainPage" >
-          <Protection comp={CourseMainPage} />
+          <PrivateRoute comp={CourseMainPage} />
         </Route>
         <Route exact path="/selection"  >
-          <Protection comp={SelectionPage} />
+          <PrivateRoute comp={SelectionPage} />
         </Route>
         <Route exact path="/testselection"  >
-          <Protection comp={TestSelectionPage} />
+          <PrivateRoute comp={TestSelectionPage} />
         </Route>
         <Route exact path="/test/summary"  >
-          <Protection comp={TestSummary} />
+          <PrivateRoute comp={TestSummary} />
         </Route>
 
       </Switch>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import Navbar from '../Navbar/navbar'
+import Navbar from '../navbar/navbar'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { emailsender } from '../Redux/Form/formAction'
-import { nameDisplay } from '../Redux/Form/formAction'
+import { emailsender } from '../redux/form/formAction'
+import { nameDisplay } from '../redux/form/formAction'
 
 function SignUp() {
 

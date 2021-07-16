@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { courseNameReducer, difficultyReducer, courseIdReducer } from "../Course/courseReducer";
-import { emailIdReducer, userNameReducer } from "../Form/formReducer";
-import { testIdReducer } from "../Test/testReducer";
+import { courseNameReducer, difficultyReducer, courseIdReducer } from "../course/courseReducer";
+import { emailIdReducer, userNameReducer } from "../form/formReducer";
+import { testIdReducer } from "../test/testReducer";
 
 export const combineReducer = combineReducers({
     courseNameReducer,

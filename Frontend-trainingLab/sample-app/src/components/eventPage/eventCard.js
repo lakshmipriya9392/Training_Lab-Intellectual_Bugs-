@@ -2,7 +2,6 @@ import React from 'react'
 import ReadMoreReact from 'read-more-react'
 import EventIcon from '@material-ui/icons/Event';
 import ShareIcon from '@material-ui/icons/Share';
-import Button from './eventButton'
 
 const EventCard = (props) => {
     return (
