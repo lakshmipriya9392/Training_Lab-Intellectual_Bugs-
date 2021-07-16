@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,5 +17,6 @@ namespace TrainingLab.Models
         public int Attendee { get; set; }
         public string imageURL { get; set; }
         public EventAttendeeModel attendeeModel { get; set; }
+
     }
 }

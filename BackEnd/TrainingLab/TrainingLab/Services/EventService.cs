@@ -18,9 +18,10 @@ namespace TrainingLab.Services
         SQLiteConnection con = new SQLiteConnection("Data Source=" + Startup.connectionString);
         public async Task<IEnumerable<EventModel>> GetEvents()
         {
-            List<EventModel> eventModel = new List<EventModel>();
+            List<EventModel> eventModels = new List<EventModel>();
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader dr;
+            EventModel eventModel;
             try
             {
                 cmd.Connection = con;
@@ -34,35 +35,37 @@ namespace TrainingLab.Services
                 {
                     while (dr.Read())
                     {
-                        eventModel.Add(new EventModel());
+                        eventModel = new EventModel();
                         GetEventAttendee(i, eventModel, dr.GetInt32(0));
-                        eventModel[i].EventId = dr.GetInt32(0);
-                        eventModel[i].EventName = dr.GetString(1);
+                        eventModel.EventId = dr.GetInt32(0);
+                        eventModel.EventName = dr.GetString(1);
                         DateTime date = DateTime.Parse(dr.GetString(2));
-                        eventModel[i].StartTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
+                        eventModel.StartTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
                         date = DateTime.Parse(dr.GetString(3));
-                        eventModel[i].EndTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
-                        eventModel[i].Description = dr.GetString(4);
-                        eventModel[i].EventURL = "http://localhost:5500/videos/events" + dr.GetString(5);
-                        i++;
+                        eventModel.EndTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
+                        eventModel.Description = dr.GetString(4);
+                        eventModel.EventURL = "http://localhost:5500/videos/events" + dr.GetString(5);
+                        eventModels.Add(eventModel);
                     }
                 }
                 dr.Close();
-                con.Close();
-                cmd.Dispose();
-                return eventModel;
+                return eventModels;
             }
             catch (Exception e)
-            {               
-                con.Close();
+            {
+                return eventModels;
+            }
+            finally
+            {
                 cmd.Dispose();
-                return eventModel;
+                con.Close();
             }
         }
 
         public async Task<IEnumerable<EventModel>> GetFutureEvents(string emailId)
         {
-            List<EventModel> eventModel = new List<EventModel>();
+            List<EventModel> eventModels = new List<EventModel>();
+            EventModel eventModel;
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteCommand cmdd = new SQLiteCommand();
             SQLiteDataReader dr;
@@ -78,42 +81,44 @@ namespace TrainingLab.Services
                 {
                     while (dr.Read())
                     {
-                        eventModel.Add(new EventModel());
+
+                        eventModel =new EventModel();
                         GetEventAttendee(i, eventModel, dr.GetInt32(0));
-                        eventModel[i].EventId = dr.GetInt32(0);
-                        eventModel[i].EventName = dr.GetString(1);
+                        eventModel.EventId = dr.GetInt32(0);
+                        eventModel.EventName = dr.GetString(1);
                         DateTime date = DateTime.Parse(dr.GetString(2));
-                        eventModel[i].StartTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
+                        eventModel.StartTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
                         date = DateTime.Parse(dr.GetString(3));
-                        eventModel[i].EndTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
-                        eventModel[i].Description = dr.GetString(4);
-                        eventModel[i].EventURL = "http://localhost:5500/videos/events" + dr.GetString(5);
-                        eventModel[i].imageURL = "http://localhost:5500/images/events" + dr.GetString(6);
+                        eventModel.EndTime = date.ToString("f", CultureInfo.CreateSpecificCulture("en-US"));
+                        eventModel.Description = dr.GetString(4);
+                        eventModel.EventURL = "http://localhost:5500/videos/events" + dr.GetString(5);
+                        eventModel.imageURL = "http://localhost:5500/images/events" + dr.GetString(6);
 
                         //To check whether the logged user has already registerd or is gonna attend this event
-                        cmdd.CommandText = "select count(*) from EventAttendee where EmailId='" + emailId + "' and EventId='" + eventModel[i].EventId + "'";
+                        cmdd.CommandText = "select count(*) from EventAttendee where EmailId='" + emailId + "' and EventId='" + eventModel.EventId + "'";
                         int totalCount = int.Parse(cmdd.ExecuteScalar().ToString());
                         if (totalCount > 0)
-                            eventModel[i].attendeeModel.Attendee = true;
+                            eventModel.attendeeModel.Attendee = true;
                         else
-                            eventModel[i].attendeeModel.Attendee = false;
-                        i++;
+                            eventModel.attendeeModel.Attendee = false;
+                        eventModels.Add(eventModel);
                     }
                 }
-                dr.Close();
-                con.Close();
-                cmd.Dispose();
-                return eventModel;
+                dr.Close();               
+                return eventModels;
             }
             catch (Exception e)
-            {               
-                con.Close();
+            {                
+                return eventModels;
+            }
+            finally
+            {
                 cmd.Dispose();
-                return eventModel;
+                con.Close();
             }
         }
 
-        public void GetEventAttendee(int i, List<EventModel> eventModel, int eventId)
+        public void GetEventAttendee(int i, EventModel eventModel, int eventId)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader sQLiteDataReader = null;
@@ -124,11 +129,11 @@ namespace TrainingLab.Services
                 sQLiteDataReader = cmd.ExecuteReader();
 
                 StringBuilder attendee = new StringBuilder();
-                eventModel[i].attendeeModel = new EventAttendeeModel();
+                eventModel.attendeeModel = new EventAttendeeModel();
                 //List of Panelists                
-                eventModel[i].attendeeModel.Panelists = new List<string>();
+                eventModel.attendeeModel.Panelists = new List<string>();
                 //Total number of attendees
-                eventModel[i].Attendee = 0;
+                eventModel.Attendee = 0;
                 if (sQLiteDataReader.HasRows)
                 {
                     int j = 0;
@@ -136,23 +141,24 @@ namespace TrainingLab.Services
                     {
                         if (sQLiteDataReader["Panelist"].ToString() == "True")
                         {
-                            eventModel[i].attendeeModel.Panelists.Add(sQLiteDataReader["Name"].ToString());
+                            eventModel.attendeeModel.Panelists.Add(sQLiteDataReader["Name"].ToString());
                         }
                         else
                         {
-                            eventModel[i].Attendee += 1;
+                            eventModel.Attendee += 1;
                         }
                         j++;
                     }
                 }
-                cmd.Dispose();
                 sQLiteDataReader.Close();
             }
             catch (Exception e)
-            {
-                cmd.Dispose();               
-                eventModel[i].attendeeModel.Panelists = null;
-                eventModel[i].Attendee = 0;
+            {                               
+                eventModel.attendeeModel.Panelists = null;
+                eventModel.Attendee = 0;
+            }
+            finally {
+                cmd.Dispose();
             }
         }
 
@@ -180,19 +186,20 @@ namespace TrainingLab.Services
                     cmd.CommandText = "INSERT INTO EventAttendee(Panelist,EmailId,EventId) VALUES('True','" + panelists[i] + "','" + eventId + "')";
                     rowsAffected = cmd.ExecuteNonQuery();
                 }
-                con.Close();
-                cmd.Dispose();
                 return true;
             }
             catch (Exception e)
-            {
-                con.Close();
-                cmd.Dispose();
+            {                
                 return false;
+            }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
             }
         }
 
-        public bool UpdateEvent(EventModel eventModel, [FromQuery] int id)
+        public bool UpdateEvent(EventModel eventModel, int id)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             cmd.Connection = con;
@@ -206,19 +213,20 @@ namespace TrainingLab.Services
                 cmd.Parameters.AddWithValue("@description", eventModel.Description);
                 cmd.Parameters.AddWithValue("@eventURL", eventModel.EventURL);
                 int rowsAffected = cmd.ExecuteNonQuery();
-                con.Close();
-                cmd.Dispose();
                 return true;
             }
             catch (Exception e)
             {
-                con.Close();
-                cmd.Dispose();
                 return false;
+            }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
             }
         }
 
-        public bool DeleteEvent([FromQuery] int id)
+        public bool DeleteEvent(int id)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             cmd.Connection = con;
@@ -227,32 +235,42 @@ namespace TrainingLab.Services
                 con.Open();
                 cmd.CommandText = "DELETE * FROM Event where Id='" + id + "'";
                 int rowsAffected = cmd.ExecuteNonQuery();
-                con.Close();
-                cmd.Dispose();
                 return true;
             }
             catch (Exception e)
             {
-                con.Close();
-                cmd.Dispose();
                 return false;
             }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
+            }
         }
-        public bool AddAttendee([FromBody] EventAttendeeModel eventAttendeeModel)
+        public bool AddAttendee(EventAttendeeModel eventAttendeeModel)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             cmd.Connection = con;
-            con.Open();
-            cmd.CommandText = "INSERT INTO EventAttendee(EmailId,EventId,Panelist) VALUES('" + eventAttendeeModel.emailId + "','" + eventAttendeeModel.eventId + "','False')";
-            int rowsAffected = cmd.ExecuteNonQuery();
-
-            con.Close();
-            cmd.Dispose();
-            if (rowsAffected > 0)
+            try
             {
-                return true;
+                con.Open();
+                cmd.CommandText = "INSERT INTO EventAttendee(EmailId,EventId,Panelist) VALUES('" + eventAttendeeModel.emailId + "','" + eventAttendeeModel.eventId + "','False')";
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch(Exception e)
+            {
+                return false;
+            }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
+            }
         }
     }
 }

@@ -38,6 +38,8 @@ namespace TrainingLab.Services
         }
         public async Task<List<ChapterModel>> GetCourseTopics(string id)
         {
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteCommand cmdd = new SQLiteCommand();
             List<ChapterModel> chapterModel;
             IDistributedCache cache = CourseController._distributedCache;
             loadLocation = null;
@@ -49,8 +51,6 @@ namespace TrainingLab.Services
             {
                 try
                 {
-                    SQLiteCommand cmd = new SQLiteCommand();
-                    SQLiteCommand cmdd = new SQLiteCommand();
                     cmd.Connection = con;
                     cmdd.Connection = con;
 
@@ -89,9 +89,6 @@ namespace TrainingLab.Services
                         }
                     }
                     dr.Close();
-                    con.Close();
-                    cmd.Dispose();
-                    cmdd.Dispose();
                     loadLocation = "Loaded from API at" + DateTime.Now;
                     Console.WriteLine(loadLocation);
                     isCacheData = "";
@@ -102,6 +99,12 @@ namespace TrainingLab.Services
                 catch (Exception e)
                 {
                     return chapterModel;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    cmdd.Dispose();
+                    con.Close();
                 }
             }
             else
@@ -116,6 +119,7 @@ namespace TrainingLab.Services
 
         public async Task<List<CourseModel>> GetCourseDetails()
         {
+            SQLiteCommand cmd = new SQLiteCommand();
             IDistributedCache cache = CourseController._distributedCache;
             List<CourseModel> courseModel;
             loadLocation = null;
@@ -127,7 +131,6 @@ namespace TrainingLab.Services
             {
                 try
                 {
-                    SQLiteCommand cmd = new SQLiteCommand();
                     cmd.Connection = con;
                     cmd.CommandText = "select * from Course";
                     con.Open();
@@ -147,8 +150,6 @@ namespace TrainingLab.Services
                         }
                     }
                     sQLiteDataReader.Close();
-                    con.Close();
-                    cmd.Dispose();
                     loadLocation = "Loaded from API at" + DateTime.Now;
                     Console.WriteLine(loadLocation);
                     isCacheData = "";
@@ -160,7 +161,11 @@ namespace TrainingLab.Services
                 {
                     return courseModel;
                 }
-
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
+                }
             }
             else
             {
@@ -187,25 +192,24 @@ namespace TrainingLab.Services
                 cmd.Parameters.AddWithValue("@chaptername", chapterModel.chapterName);
                 cmd.Parameters.AddWithValue("@courseId", chapterModel.courseId);
                 int rowsAffected = cmd.ExecuteNonQuery();
-                con.Close();
-                cmd.Dispose();
                 return true;
             }
             catch (Exception e)
+            {                
+                return false;
+            }
+            finally
             {
                 cmd.Dispose();
                 con.Close();
-                return false;
             }
-
         }
 
-        public bool EditChapter(ChapterModel chapterModel, [FromQuery] int id)
+        public bool EditChapter(ChapterModel chapterModel, int id)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             try
             {
-                cmd.Connection = con;
                 cmd.Connection = con;
                 con.Open();
                 cmd.CommandText = "UPDATE Chapter SET Id=@chapterId,Chaptername=@chapterName,CourseId=@courseId where Id='" + id + "'";
@@ -213,16 +217,17 @@ namespace TrainingLab.Services
                 cmd.Parameters.AddWithValue("@chaptername", chapterModel.chapterName);
                 cmd.Parameters.AddWithValue("@courseId", chapterModel.courseId);
                 int rowsAffected = cmd.ExecuteNonQuery();
-                con.Close();
                 return true;
             }
             catch (Exception e)
             {
-                cmd.Dispose();
-                con.Close();
                 return false;
             }
-
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
+            }
         }
 
         public bool AddTopics(TopicModel topicModel)
@@ -238,19 +243,20 @@ namespace TrainingLab.Services
                 cmd.Parameters.AddWithValue("@notesURL", topicModel.notesURL);
                 cmd.Parameters.AddWithValue("@chapterId", topicModel.chapterId);
                 int rowsAffected = cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                con.Close();
                 return true;
             }
             catch (Exception e)
             {
+                return false;
+            }
+            finally
+            {
                 cmd.Dispose();
                 con.Close();
-                return false;
             }
         }
 
-        public bool EditTopics(TopicModel topicModel, [FromQuery] int id)
+        public bool EditTopics(TopicModel topicModel, int id)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             try
@@ -263,15 +269,16 @@ namespace TrainingLab.Services
                 cmd.Parameters.AddWithValue("@notesURL", topicModel.notesURL);
                 cmd.Parameters.AddWithValue("@chapterId", topicModel.chapterId);
                 int rowsAffected = cmd.ExecuteNonQuery();
-                cmd.Dispose();
-                con.Close();
                 return true;
             }
             catch (Exception e)
             {
+                return false;
+            }
+            finally
+            {
                 cmd.Dispose();
                 con.Close();
-                return false;
             }
         }
     }

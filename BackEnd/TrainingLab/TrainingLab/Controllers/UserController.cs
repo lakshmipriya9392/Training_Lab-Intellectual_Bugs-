@@ -19,8 +19,7 @@ namespace TrainingLab.Controllers
     {
              
         //signup
-        [HttpPost]
-        [Route("signup")]
+        [HttpPost("signup")]
         public IActionResult SignUp([FromBody] UserModel userModel)
         {try
             {
@@ -31,18 +30,17 @@ namespace TrainingLab.Controllers
                         result = "True"
                     });
                 }
-                return Ok(new
+                return Unauthorized(new
                 {
                     result = "False",
                     message = "User with such email already exists!"
                 });
             }
-            catch (Exception e) { return Ok(e); }
+            catch (Exception e) { return Unauthorized(e); }
         }
 
         //signin
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         public IActionResult SignIn([FromBody] UserModel userModel)
         {
             try
@@ -50,7 +48,7 @@ namespace TrainingLab.Controllers
                 bool result = UserService.Instance.SignIn(userModel);
                 if (result == false)
                 {
-                    return Ok(new
+                    return Unauthorized(new
                     {
                         result = "False",
                         message = "Invalid Email or Password!"
@@ -65,7 +63,7 @@ namespace TrainingLab.Controllers
                     });
                 }
             }
-            catch (Exception e) { return Ok(e); }
+            catch (Exception e) { return Unauthorized(e); }
         }
     }
 }

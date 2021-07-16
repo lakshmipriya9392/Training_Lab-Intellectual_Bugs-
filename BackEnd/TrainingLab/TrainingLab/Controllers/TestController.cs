@@ -33,7 +33,7 @@ namespace TrainingLab.Controllers
             return Ok(await TestService.Instance.GetCourses(id, levelName));
         }
 
-        [HttpGet("getlevels")]
+        [HttpGet("level")]
         public async Task<IActionResult> GetLevels()
         {
             return Ok(await TestService.Instance.GetLevels());
@@ -42,9 +42,7 @@ namespace TrainingLab.Controllers
         [HttpPost("clearScore")]
         public IActionResult ClearScore()
         {
-            TestService.totalCorrectAnswer = 0;
-            TestService.totalWrongAnswer = 0;
-            TestService.score = 0;
+            TestService.Instance.ClearScore();
             return Ok();
         }
 
@@ -65,7 +63,9 @@ namespace TrainingLab.Controllers
             }
             catch(Exception e)
             {
-                return Ok(e);
+                Response.StatusCode = 204;
+                return (IActionResult)Response;
+                //return Ok(e);
             }
         }
 
@@ -84,29 +84,37 @@ namespace TrainingLab.Controllers
                     TestService.score = 0;
                     return Ok(new { totalQuestion = totalCorrectAnswer + totalWrongAnswer, totalCorrectAnswer = totalCorrectAnswer, totalWrongAnswer = totalWrongAnswer, score = score });
                 }
-                return Ok(new { result = "something gone wrong!" });
+                Response.StatusCode = 204;
+                return (IActionResult)Response;
+                //return Ok(new { result = "something gone wrong!" });
             }
             catch(Exception e)
             {
-                return Ok(e);
+                Response.StatusCode = 204;
+                return (IActionResult)Response;
+                //return Ok(e);
             }
         }
 
 
-        [HttpPost("postQuestion")]
-        public IActionResult PostQuestion(QuestionnaireModel[] questionnaireModels)
+        [HttpPost("question")]
+        public IActionResult AddQuestion(QuestionnaireModel[] questionnaireModels)
         {
             try
             {
-                if (TestService.Instance.PostQuestion(questionnaireModels))
+                if (TestService.Instance.AddQuestion(questionnaireModels))
                 {
                     return Ok(new { result = "success" });
                 }
-                return Ok(new { result = "something gone wrong!" });
+                Response.StatusCode = 204;
+                return (IActionResult)Response;
+                //return Ok(new { result = "something gone wrong!" });
             }
             catch(Exception e)
             {
-                return Ok(e);
+                Response.StatusCode = 204;
+                return (IActionResult)Response;
+                //return Ok(e);
             }
         }
 
