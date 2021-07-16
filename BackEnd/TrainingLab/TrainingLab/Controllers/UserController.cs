@@ -1,14 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.SQLite;
-using Microsoft.AspNetCore.Authorization;
 using TrainingLab.Models;
-using System.Text;
 using TrainingLab.Services;
-using Microsoft.Extensions.Configuration;
 using System;
 
 namespace TrainingLab.Controllers

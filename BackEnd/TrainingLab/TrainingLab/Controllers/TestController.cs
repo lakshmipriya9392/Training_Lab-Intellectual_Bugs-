@@ -1,13 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingLab.Models;
 using TrainingLab.Services;
@@ -79,9 +72,7 @@ namespace TrainingLab.Controllers
                     int totalCorrectAnswer = TestService.totalCorrectAnswer;
                     int totalWrongAnswer = TestService.totalWrongAnswer;
                     int score = TestService.score;
-                    TestService.totalCorrectAnswer = 0;
-                    TestService.totalWrongAnswer = 0;
-                    TestService.score = 0;
+                    ClearScore();
                     return Ok(new { totalQuestion = totalCorrectAnswer + totalWrongAnswer, totalCorrectAnswer = totalCorrectAnswer, totalWrongAnswer = totalWrongAnswer, score = score });
                 }
                 Response.StatusCode = 204;

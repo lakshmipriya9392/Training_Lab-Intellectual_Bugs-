@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Globalization;
 using System.Threading.Tasks;
 using TrainingLab.Models;
 using TrainingLab.Services;
-using Microsoft.Extensions.Configuration;
 
 namespace TrainingLab.Controllers
 {

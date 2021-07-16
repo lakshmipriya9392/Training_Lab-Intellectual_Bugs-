@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TrainingLab.Models;
 using TrainingLab.Services;

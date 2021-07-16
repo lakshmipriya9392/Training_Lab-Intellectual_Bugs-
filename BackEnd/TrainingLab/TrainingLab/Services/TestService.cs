@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
+﻿using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using TrainingLab.Controllers;
-using TrainingLab.Extensions;
 using TrainingLab.Models;
 
 namespace TrainingLab.Services
@@ -288,7 +284,6 @@ namespace TrainingLab.Services
                 cmd.CommandText = "INSERT INTO UserTestLevel(EmailId,TestId,Status) VALUES('" + emailId + "','" + id + "','UPGRADING')";
                 int rowsAffetcted = cmd.ExecuteNonQuery();
                 bool result=await UpgradeLevel(id, score, emailId);
-                ClearScore();
                 return true;
             }
             catch(Exception e)

@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 using System.Threading.Tasks;
 using TrainingLab.Models;
-using TrainingLab.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
 using TrainingLab.Controllers;
-using TrainingLab.Services;
 
 namespace TrainingLab.Services
 {
@@ -66,7 +62,7 @@ namespace TrainingLab.Services
                             chapterModel=new ChapterModel();
                             chapterModel.chapterId = dr.GetInt32(0);
                             chapterModel.chapterName = dr.GetString(1);
-                            cmdd.CommandText = "select * from Topic t inner join Chapter ch on ch.Id=t.ChapterId inner join Course c on c.Id=ch.CourseId where t.ChapterId='" + chapterModel[i].chapterId + "'";
+                            cmdd.CommandText = "select * from Topic t inner join Chapter ch on ch.Id=t.ChapterId inner join Course c on c.Id=ch.CourseId where t.ChapterId='" + chapterModel.chapterId + "'";
                             SQLiteDataReader sQLiteDataReader = cmdd.ExecuteReader();
                             List<TopicModel> topicModels = new List<TopicModel>();
                             TopicModel topicModel;
