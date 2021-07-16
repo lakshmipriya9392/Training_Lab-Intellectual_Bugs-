@@ -14,7 +14,7 @@ import TestSummary from './components/testPage/summaryPage'
 
 function App() {
   return (
-    <>
+    <React.Fragment>
 
 
       <Switch>
@@ -29,7 +29,7 @@ function App() {
         <Route exact path='/testselection' component={TestSelectionPage} />
         <Route exact path='/test/summary' component={TestSummary} />
       </Switch>
-    </>
+    </React.Fragment>
   )
 }
 
