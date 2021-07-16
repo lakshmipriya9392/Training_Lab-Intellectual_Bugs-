@@ -30,8 +30,6 @@ namespace TrainingLab.Services
                 int userCount = int.Parse(cmd.ExecuteScalar().ToString());
                 if (userCount > 0)
                 {
-                    cmd.Dispose();
-                    con.Close();
                     return false;
                 }
                 else
@@ -39,16 +37,17 @@ namespace TrainingLab.Services
                     //string s = Crypto.Encryptor.Encrypt(user.password);
                     cmd.CommandText = "INSERT INTO User(Name,EmailId,Password) VALUES('" + user.name + "','" + user.emailId + "','" + user.password + "')";
                     int rowsAffected = cmd.ExecuteNonQuery();
-                    cmd.Dispose();
-                    con.Close();
                     return true;
                 }
             }
             catch(Exception e)
             {
-                cmd.Dispose();
-                con.Close();
                 return false;
+            }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();                
             }
         }
 
@@ -72,16 +71,17 @@ namespace TrainingLab.Services
                         userName = dr.GetString(1);
                     }
                 }
-                dr.Close();
-                cmd.Dispose();
-                con.Close();               
+                dr.Close();               
                 return !(userName==null);
             }
             catch(Exception e)
             {
+                return false;
+            }
+            finally
+            {
                 cmd.Dispose();
                 con.Close();
-                return false;
             }
         }
     }

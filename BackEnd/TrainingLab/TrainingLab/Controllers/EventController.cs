@@ -21,55 +21,65 @@ namespace TrainingLab.Controllers
             return Ok(await EventService.Instance.GetEvents());        
         }
 
-        [HttpGet("FutureEvents")]
+        [HttpGet("futureEvents")]
         public async Task<IActionResult>  GetFutureEvents([FromQuery] string emailId)
         {
             return Ok(await EventService.Instance.GetFutureEvents(emailId));
         }
 
        
-        [HttpPost("addEvent")]
+        [HttpPost("event")]
         public IActionResult AddEvent(EventModel eventModel)
         {
            if(EventService.Instance.AddEvent(eventModel))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't insert data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return (new { result = "Couldn't insert data" });
         }
 
-        [HttpPost("updateEvent")]
+        [HttpPut("event")]
         public IActionResult UpdateEvent(EventModel eventModel,[FromQuery] int id)
         {
             if (EventService.Instance.UpdateEvent(eventModel,id))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't update data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return Ok(new { result = "Couldn't update data" });
         }
 
-        [HttpPost("deleteEvent")]
+        [HttpDelete("event")]
         public IActionResult DeleteEvent([FromQuery] int id)
         {
             if (EventService.Instance.DeleteEvent(id))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't delete data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return Ok(new { result = "Couldn't delete data" });
         }
 
-        [HttpPost("addattendee")]
+        [HttpPost("attendee")]
         public IActionResult AddAttendee([FromBody] EventAttendeeModel eventAttendeeModel)
         {
             if(eventAttendeeModel.eventId<=0 || eventAttendeeModel.emailId=="")
             {
-                return Ok(new { result = "Couldn't insert data" });
+                Response.StatusCode = 204;
+                return (IActionResult)Response;
+                //return Ok(new { result = "Couldn't insert data" });
             }
             if (EventService.Instance.AddAttendee(eventAttendeeModel))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't insert data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return Ok(new { result = "Couldn't insert data" });
         }
     }
 }

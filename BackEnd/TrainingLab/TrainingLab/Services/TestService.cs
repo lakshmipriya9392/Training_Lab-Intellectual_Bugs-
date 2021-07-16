@@ -69,8 +69,6 @@ namespace TrainingLab.Services
                         }
                     }
                     sQLiteDataReader.Close();
-                    cmd.Dispose();
-                    con.Close();
                     loadLocation = "Loaded from API at" + DateTime.Now;
                     Console.WriteLine(loadLocation);
                     isCacheData = "";
@@ -81,6 +79,11 @@ namespace TrainingLab.Services
                 catch (Exception e)
                 {
                     return levelModels;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
                 }
             }
             else
@@ -126,8 +129,6 @@ namespace TrainingLab.Services
                         }
                     }
                     sQLiteDataReader.Close();
-                    cmd.Dispose();
-                    con.Close();
                     loadLocation = "Loaded from API at" + DateTime.Now;
                     Console.WriteLine(loadLocation);
                     isCacheData = "";
@@ -137,8 +138,12 @@ namespace TrainingLab.Services
                 }
                 catch (Exception e)
                 {
-                    con.Close();
                     return courseModel;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
                 }
             }
             else
@@ -211,8 +216,6 @@ namespace TrainingLab.Services
                         }
                     }
                     dr.Close();
-                    cmd.Dispose();
-                    con.Close();
                     loadLocation = "Loaded from API at" + DateTime.Now;
                     Console.WriteLine(loadLocation);
                     isCacheData = "";
@@ -222,8 +225,12 @@ namespace TrainingLab.Services
                 }
                 catch (Exception e)
                 {
-                    con.Close();
                     return questionnaireModel;
+                }
+                finally
+                {
+                    cmd.Dispose();
+                    con.Close();
                 }
             }
             else
@@ -249,7 +256,6 @@ namespace TrainingLab.Services
                 con.Open();
                 cmd.CommandText = "select CorrectAnswer from Questionnaire where Id='" + id + "'";
                 string correctAnswer = cmd.ExecuteScalar().ToString();
-                con.Close();
                 if (correctAnswer.Equals(answer))
                 {
                     score++;
@@ -264,11 +270,13 @@ namespace TrainingLab.Services
             }
             catch(Exception e)
             {
-                cmd.Dispose();
-                con.Close();
                 return "False";
             }
-
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
+            }
         }
 
         //Store the score in database
@@ -282,14 +290,17 @@ namespace TrainingLab.Services
                 cmd.CommandText = "INSERT INTO UserTestLevel(EmailId,TestId,Status) VALUES('" + emailId + "','" + id + "','UPGRADING')";
                 int rowsAffetcted = cmd.ExecuteNonQuery();
                 bool result=await UpgradeLevel(id, score, emailId);
-                con.Close();                
+                ClearScore();
                 return true;
             }
             catch(Exception e)
             {
+                return false;
+            }
+            finally
+            {
                 cmd.Dispose();
                 con.Close();
-                return false;
             }
         }
 
@@ -318,9 +329,19 @@ namespace TrainingLab.Services
             {
                 return false;
             }
+            finally
+            {
+                cmd.Dispose();
+            }
         }
 
-        public bool PostQuestion(QuestionnaireModel[] questionnaireModels)
+        public void ClearScore()
+        {
+            totalCorrectAnswer = 0;
+            totalWrongAnswer = 0;
+            score = 0;
+        }
+        public bool AddQuestion(QuestionnaireModel[] questionnaireModels)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             try
@@ -343,11 +364,9 @@ namespace TrainingLab.Services
                     {
                         break;
                     }
-                    PostOptions(optionModel,questionId);
+                    AddOptions(optionModel,questionId);
                     i++;
                 }
-                con.Close();
-                cmd.Dispose();
                 if (rowsAffected > 0)
                 {
                     return true;
@@ -356,13 +375,16 @@ namespace TrainingLab.Services
             }
             catch(Exception e)
             {
-                con.Close();
-                cmd.Dispose();
                 return false;
+            }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
             }
         }
 
-        public bool PostOptions(OptionModel[] optionModel,int questionId)
+        public bool AddOptions(OptionModel[] optionModel,int questionId)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             try
@@ -379,8 +401,6 @@ namespace TrainingLab.Services
                     cmd.CommandText = "INSERT INTO Options(OptionA,OptionB,QuestionId) VALUES('" + optionModel[0].option + "','" + optionModel[1].option + "','" + questionId + "')";
                 }
                 rowsAffected = cmd.ExecuteNonQuery();
-              
-                cmd.Dispose();
                 if (rowsAffected > 0)
                 {
                     return true;
@@ -389,9 +409,12 @@ namespace TrainingLab.Services
             }
             catch(Exception e)
             {
-                con.Close();
-                cmd.Dispose();
                 return false;
+            }
+            finally
+            {
+                cmd.Dispose();
+                con.Close();
             }
         }
     }

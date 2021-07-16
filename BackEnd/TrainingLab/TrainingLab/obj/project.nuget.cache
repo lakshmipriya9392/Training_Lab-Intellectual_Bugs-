@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6ivnwrYAoMoB9bJtc0bMW7pKYxNVsqZae4Yo7hiB1noyHO0sUZ6RH9b5hizhFS+p1Y/7bc7t3MxwDtPp0Rer+w==",
+  "dgSpecHash": "MdCkH5vpX1Tc84cluGjSpUb65IjsqwU4acrttttv58wt2A+ahJilZfAbhb1YrNQw1epQyOnpk/E1mxCZbl4VGQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\HIMANI\\Desktop\\Training Lab\\Back end\\BackEnd\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
+  "projectFilePath": "C:\\Users\\HIMANI\\Desktop\\Training Lab\\BackEnd\\TrainingLab\\TrainingLab\\TrainingLab.csproj",
   "expectedPackageFiles": [
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

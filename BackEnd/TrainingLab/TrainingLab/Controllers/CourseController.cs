@@ -31,49 +31,53 @@ namespace TrainingLab.Controllers
         }
 
         
-        [HttpPost]
-        [Route("addchapter")]
+        [HttpPost("chapter")]
         public IActionResult AddChapter(ChapterModel chapterModel)
         {
             if(CourseService.Instance.AddChapter(chapterModel))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't insert data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return Ok(new { result = "Couldn't insert data" });
 
         }
 
-        [HttpPost]
-        [Route("editchapter")]
+        [HttpPut("chapter")]
         public IActionResult EditChapter(ChapterModel chapterModel,[FromQuery] int id)
         {
             if (CourseService.Instance.EditChapter(chapterModel,id))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't update data" });
+            Response.StatusCode = 204;            
+            return (IActionResult)Response;
+            //return NoContent(new { result = "Couldn't update data" });
         }
 
-        [HttpPost]
-        [Route("addtopics")]
+        [HttpPost("topics")]
         public IActionResult AddTopics(TopicModel topicModel)
         {
             if (CourseService.Instance.AddTopics(topicModel))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't insert data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return Ok(new { result = "Couldn't insert data" });
         }
 
-        [HttpPost]
-        [Route("edittopics")]
+        [HttpPut("topics")]
         public IActionResult EditTopics(TopicModel topicModel,[FromQuery] int id)
         {
             if (CourseService.Instance.EditTopics(topicModel,id))
             {
                 return Ok();
             }
-            return Ok(new { result = "Couldn't update data" });
+            Response.StatusCode = 204;
+            return (IActionResult)Response;
+            //return Ok(new { result = "Couldn't update data" });
         }
     }
 }
