@@ -11,6 +11,11 @@ import { useSelector } from 'react-redux'
 const ReactPage = () => {
     const state = useSelector(state => state.courseNameReducer)
     const [nav, openNav] = useState(false)
+    const url = "https://localhost:5001/";
+    const [reactCourses, setReactCourses] = useState([]);
+    const [video, setVideo] = useState("")
+    const [notes, setNotes] = useState("")
+
     const changer = () => {
         if (nav) {
             openNav(false)
@@ -20,7 +25,6 @@ const ReactPage = () => {
         }
     }
 
-    const url = "https://localhost:5001/";
 
     const getReact = () => {
         axios.get(`${url}course?id=${state}`)
@@ -36,12 +40,6 @@ const ReactPage = () => {
         getReact()
     }, []);
 
-    const [reactCourses, setReactCourses] = useState([]);
-
-    const [video, setVideo] = useState("")
-
-
-    const [notes, setNotes] = useState("")
 
     return (
 

@@ -15,7 +15,8 @@ function SignIn() {
     const [emailErr, setEmailErr] = useState({})
     const [passwordErr, setPasswordErr] = useState({})
     const [loginSuccess, setLoginSuccess] = useState(true)
-    var crypto = require('crypto');
+    var crypto = require('crypto')
+
     const SubmitForm = (e) => {
         e.preventDefault()
         const isValid = validation()

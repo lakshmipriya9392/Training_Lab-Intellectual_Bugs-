@@ -1,5 +1,5 @@
 import { nameReducers, emailIdReducer } from './formReducer'
-//The below part is action send email
+
 
 export const emailsender = (show) => {
     return {
@@ -8,7 +8,6 @@ export const emailsender = (show) => {
     }
 }
 
-//The below part is action name display
 
 export const nameDisplay = (show) => {
     return {

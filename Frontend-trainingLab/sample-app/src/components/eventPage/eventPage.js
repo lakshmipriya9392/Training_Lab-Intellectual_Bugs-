@@ -18,6 +18,9 @@ function EventPage() {
     const url = "https://localhost:5001/";
     const [events, setEvents] = useState([])
     const [futureEvents, setFutureEvents] = useState([])
+    const [pastEvent, futureEvent] = useState(true);
+    const [id, setId] = useState()
+
     const getEvents = () => {
         axios.get(`${url}event`)
             .then((response) => {
@@ -34,9 +37,6 @@ function EventPage() {
             }).catch(error => console.log(`Error : ${error}`))
     }
 
-    const [pastEvent, futureEvent] = useState(true);
-
-    const [id, setId] = useState()
 
     const details = {
         emailId: state,

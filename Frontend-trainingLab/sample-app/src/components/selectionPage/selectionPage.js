@@ -12,8 +12,6 @@ function SelectionPage() {
     return (
         <div className="relative w-full h-full bg-blue-300">
 
-            {/* <img src={BackImage} alt="" className='absolute top-0 bottom-0 left-0 right-0 w-screen h-screen mx-auto mt-0 z-0' /> */}
-
             <Navbar>
                 <NavIcon />
             </Navbar>

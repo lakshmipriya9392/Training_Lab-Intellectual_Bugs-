@@ -20,6 +20,7 @@ function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [confirmPasswordErr, setConfirmPasswordErr] = useState({})
     const [loginSuccess, setLoginSuccess] = useState(false)
+
     var crypto = require('crypto');
     const SubmitForm = (e) => {
         e.preventDefault()

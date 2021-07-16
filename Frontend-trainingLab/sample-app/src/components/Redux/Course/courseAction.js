@@ -1,5 +1,5 @@
 import { courseNameReducer, difficultyReducer, courseIdReducer } from "./courseReducer"
-//The below part is action for selecting course
+
 
 export const courseSelector = (show) => {
     return {
@@ -7,7 +7,7 @@ export const courseSelector = (show) => {
         payload: show
     }
 }
-//The below part is action for selecting course difficulty
+
 
 export const difficultySetting = (show) => {
     return {
@@ -16,7 +16,6 @@ export const difficultySetting = (show) => {
     }
 }
 
-//The below part is action show courses
 
 export const courseNum = (show) => {
     return {

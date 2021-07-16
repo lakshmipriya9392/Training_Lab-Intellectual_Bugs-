@@ -1,5 +1,4 @@
 import { emailsender, nameDisplay } from './formAction'
-//The below part is reducer send email
 
 const initialState = ""
 
@@ -14,7 +13,7 @@ export const emailIdReducer = (state = initialState, action) => {
     }
 }
 
-//The below part is reducer name display
+
 
 const initialNameState = ""
 

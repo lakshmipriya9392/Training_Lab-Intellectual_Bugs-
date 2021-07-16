@@ -8,12 +8,15 @@ import { useDispatch } from 'react-redux'
 
 function TestPage() {
     const dispatch = useDispatch()
-    const nameShow = useSelector(state => state.userNameReducer)
-    const statmail = useSelector(state => state.emailIdReducer)
-    const state = useSelector(state => state.testIdReducer)
-    const stateSec = useSelector(state => state.difficultyReducer)
-    // console.log(state)
+    const userName = useSelector(state => state.userNameReducer)
+    const email = useSelector(state => state.emailIdReducer)
+    const testId = useSelector(state => state.testIdReducer)
+    const difficulty = useSelector(state => state.difficultyReducer)
     const [arrLen, setArrLen] = useState(0)
+    const [num, setNum] = useState(0)
+    const [answers, setAnswers] = useState('')
+    const [correctAns, setCorrectAns] = useState("")
+    const [response, setResponse] = useState()
     const [data, setData] = useState(
         {
             optionList: [
@@ -22,13 +25,11 @@ function TestPage() {
 
         }
     )
-    const [num, setNum] = useState(0)
-    const [answers, setAnswers] = useState('')
-    const [correctAns, setCorrectAns] = useState("")
-    const [response, setResponse] = useState()
+    const [min, setMin] = useState(10)
+    const [sec, setSec] = useState(0)
 
     const getQuestions = () => {
-        axios.get(`https://localhost:5001/test?id=${state}&levelName=${stateSec}`)
+        axios.get(`https://localhost:5001/test?id=${testId}&levelName=${difficulty}`)
             .then((res) => {
                 const TestData = res.data[num];
                 setArrLen(res.data)
@@ -55,7 +56,7 @@ function TestPage() {
     }
 
     const getAnswers = () => {
-        axios.post(`https://localhost:5001/test?id=${data.questionId}&emailId=${statmail}&answer=${answers}`)
+        axios.post(`https://localhost:5001/test?id=${data.questionId}&emailId=${email}&answer=${answers}`)
             .then((res) => {
                 setResponse(res.data.message)
                 setCorrectAns(res.data.correctAnswer)
@@ -95,8 +96,6 @@ function TestPage() {
     }
 
 
-    let [min, setMin] = useState(10)
-    let [sec, setSec] = useState(0)
 
 
     useEffect(() => {
@@ -127,7 +126,7 @@ function TestPage() {
             {arrLen.length > 1 ?
                 <div className='relative top-0 left-0 right-0 bottom-0 flex justify-center'>
                     <div className="w-3/4 mt-10 h-auto">
-                        <div className="text-center text-xl my-2">Welcome, {nameShow}</div>
+                        <div className="text-center text-xl my-2">Welcome, {userName}</div>
 
                         <div className="w-full">
                             <div className="text-center text-2xl mb-2 mx-5">Question: {num + 1}</div>

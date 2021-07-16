@@ -11,6 +11,7 @@ import { courseSelector } from '../Redux/Course/courseAction'
 
 function CoursesPage() {
 
+    const history = useHistory();
     const dispatch = useDispatch()
     const [courses, setCourses] = useState([])
 
@@ -28,7 +29,6 @@ function CoursesPage() {
         getCourses()
     }, [])
 
-    const history = useHistory({});
 
     return (
         <div className='relative top-0 right-0 left-0 bottom-0 bg-blue-300 '>

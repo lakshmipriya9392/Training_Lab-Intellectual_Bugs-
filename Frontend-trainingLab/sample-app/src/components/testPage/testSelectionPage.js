@@ -17,8 +17,9 @@ function TestSelectionPage() {
     const [course, setCourse] = useState("Select Course");
     const [difficulty, setDifficulty] = useState("Select Difficulty");
     const [levelsetting, setLevelSetting] = useState([]);
-
+    const [checker, setChecker] = useState("");
     const [subArr, setSubArr] = useState([]);
+
     const subject = () => {
         axios
             .get("https://localhost:5001/course")
@@ -44,7 +45,6 @@ function TestSelectionPage() {
         levels();
     }, []);
 
-    const [checker, setChecker] = useState("");
 
     const testProceed = () => {
         if (course !== "Select Course" && difficulty !== "Select Difficulty") {
