@@ -40,14 +40,15 @@ namespace TrainingLab.Services
         {
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteCommand cmdd = new SQLiteCommand();
-            List<ChapterModel> chapterModel;
+            List<ChapterModel> chapterModels;
+            ChapterModel chapterModel;
             IDistributedCache cache = CourseController._distributedCache;
             loadLocation = null;
             string recordKey = CourseController.recordKey;
             //Getting data from cache
-            chapterModel = null;
+            chapterModels = null;
             //await cache.GetRecordAsync<List<ChapterModel>>(recordKey);
-            if (chapterModel is null)
+            if (chapterModels is null)
             {
                 try
                 {
@@ -57,35 +58,34 @@ namespace TrainingLab.Services
                     cmd.CommandText = "select * from Chapter where CourseId='" + id + "'";
                     con.Open();
                     SQLiteDataReader dr = cmd.ExecuteReader();
-                    int i = 0;
-                    chapterModel = new List<ChapterModel>();
+                    chapterModels = new List<ChapterModel>();
                     if (dr.HasRows)
                     {
                         while (dr.Read())
                         {
-                            chapterModel.Add(new ChapterModel());
-                            chapterModel[i].chapterId = dr.GetInt32(0);
-                            chapterModel[i].chapterName = dr.GetString(1);
+                            chapterModel=new ChapterModel();
+                            chapterModel.chapterId = dr.GetInt32(0);
+                            chapterModel.chapterName = dr.GetString(1);
                             cmdd.CommandText = "select * from Topic t inner join Chapter ch on ch.Id=t.ChapterId inner join Course c on c.Id=ch.CourseId where t.ChapterId='" + chapterModel[i].chapterId + "'";
                             SQLiteDataReader sQLiteDataReader = cmdd.ExecuteReader();
-                            int j = 0;
-                            List<TopicModel> topicModel = new List<TopicModel>();
+                            List<TopicModel> topicModels = new List<TopicModel>();
+                            TopicModel topicModel;
                             if (sQLiteDataReader.HasRows)
                             {
                                 while (sQLiteDataReader.Read())
                                 {
-                                    topicModel.Add(new TopicModel());
-                                    topicModel[j].topicId = int.Parse(sQLiteDataReader["Id"].ToString());
-                                    topicModel[j].topicName = sQLiteDataReader["TopicName"].ToString();
-                                    topicModel[j].videoURL = "http://localhost:5500/videos/courses" + sQLiteDataReader["VideoURL"].ToString();
-                                    topicModel[j].notesURL = sQLiteDataReader["NotesURL"].ToString();
-                                    topicModel[j].chapterId = int.Parse(sQLiteDataReader["ChapterId"].ToString());
-                                    j++;
+                                    topicModel = new TopicModel();
+                                    topicModel.topicId = int.Parse(sQLiteDataReader["Id"].ToString());
+                                    topicModel.topicName = sQLiteDataReader["TopicName"].ToString();
+                                    topicModel.videoURL = "http://localhost:5500/videos/courses" + sQLiteDataReader["VideoURL"].ToString();
+                                    topicModel.notesURL = sQLiteDataReader["NotesURL"].ToString();
+                                    topicModel.chapterId = int.Parse(sQLiteDataReader["ChapterId"].ToString());
+                                    topicModels.Add(topicModel);
                                 }
                             }
-                            chapterModel[i].topics = topicModel;
+                            chapterModel.topics = topicModels;
                             sQLiteDataReader.Close();
-                            i++;
+                            chapterModels.Add(chapterModel);
                         }
                     }
                     dr.Close();
@@ -94,11 +94,11 @@ namespace TrainingLab.Services
                     isCacheData = "";
                     //Setting data in cache
                     //await cache.SetRecordAsync(recordKey, chapterModel);
-                    return chapterModel;
+                    return chapterModels;
                 }
                 catch (Exception e)
                 {
-                    return chapterModel;
+                    return chapterModels;
                 }
                 finally
                 {
@@ -112,7 +112,7 @@ namespace TrainingLab.Services
                 loadLocation = "Loaded from cache at" + DateTime.Now;
                 Console.WriteLine(loadLocation);
                 isCacheData = "data";
-                return chapterModel;
+                return chapterModels;
             }
         }
 
@@ -121,13 +121,14 @@ namespace TrainingLab.Services
         {
             SQLiteCommand cmd = new SQLiteCommand();
             IDistributedCache cache = CourseController._distributedCache;
-            List<CourseModel> courseModel;
+            List<CourseModel> courseModels;
+            CourseModel courseModel;
             loadLocation = null;
             string recordKey = CourseController.recordKey;
             //Getting data from cache
-            courseModel = null;
+            courseModels = null;
             //await cache.GetRecordAsync<List<CourseModel>>(recordKey);
-            if (courseModel is null)
+            if (courseModels is null)
             {
                 try
                 {
@@ -135,18 +136,17 @@ namespace TrainingLab.Services
                     cmd.CommandText = "select * from Course";
                     con.Open();
                     SQLiteDataReader sQLiteDataReader = cmd.ExecuteReader();
-                    int i = 0;
-                    courseModel = new List<CourseModel>();
+                    courseModels = new List<CourseModel>();
                     if (sQLiteDataReader.HasRows)
                     {
                         while (sQLiteDataReader.Read())
                         {
-                            courseModel.Add(new CourseModel());
-                            courseModel[i].courseId = int.Parse(sQLiteDataReader["Id"].ToString());
-                            courseModel[i].courseName = sQLiteDataReader["CourseName"].ToString();
-                            courseModel[i].authorName = sQLiteDataReader["AuthorName"].ToString();
-                            courseModel[i].imageURL = "http://localhost:5500/images/courses" + sQLiteDataReader["ImageURL"].ToString();
-                            i++;
+                            courseModel=new CourseModel();
+                            courseModel.courseId = int.Parse(sQLiteDataReader["Id"].ToString());
+                            courseModel.courseName = sQLiteDataReader["CourseName"].ToString();
+                            courseModel.authorName = sQLiteDataReader["AuthorName"].ToString();
+                            courseModel.imageURL = "http://localhost:5500/images/courses" + sQLiteDataReader["ImageURL"].ToString();
+                            courseModels.Add(courseModel);
                         }
                     }
                     sQLiteDataReader.Close();
@@ -155,11 +155,11 @@ namespace TrainingLab.Services
                     isCacheData = "";
                     //Setting data in cache
                     //await cache.SetRecordAsync(recordKey, courseModel);
-                    return courseModel;
+                    return courseModels;
                 }
                 catch (Exception e)
                 {
-                    return courseModel;
+                    return courseModels;
                 }
                 finally
                 {
@@ -172,7 +172,7 @@ namespace TrainingLab.Services
                 loadLocation = "Loaded from cache at" + DateTime.Now;
                 Console.WriteLine(loadLocation);
                 isCacheData = "data";
-                return courseModel;
+                return courseModels;
             }
 
         }

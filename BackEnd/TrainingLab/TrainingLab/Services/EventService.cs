@@ -28,15 +28,12 @@ namespace TrainingLab.Services
                 con.Open();                                
                 cmd.CommandText = "select * from Event EXCEPT select * from Event where StartTime>='" + DateTime.UtcNow.AddHours(5.5).ToString("yyyy-MM-dd HH:mm:ss") + "' ORDER BY StartTime DESC";                            
                 dr = cmd.ExecuteReader();
-
-                int i = 0;
-
                 if (dr.HasRows)
                 {
                     while (dr.Read())
                     {
                         eventModel = new EventModel();
-                        GetEventAttendee(i, eventModel, dr.GetInt32(0));
+                        GetEventAttendee(eventModel, dr.GetInt32(0));
                         eventModel.EventId = dr.GetInt32(0);
                         eventModel.EventName = dr.GetString(1);
                         DateTime date = DateTime.Parse(dr.GetString(2));
@@ -76,14 +73,12 @@ namespace TrainingLab.Services
                 con.Open();
                 cmd.CommandText = "select * from Event where StartTime>='" + DateTime.UtcNow.AddHours(5.5).ToString("yyyy-MM-dd HH:mm:ss") + "'";
                 dr = cmd.ExecuteReader();
-                int i = 0;
                 if (dr.HasRows)
                 {
                     while (dr.Read())
                     {
-
                         eventModel =new EventModel();
-                        GetEventAttendee(i, eventModel, dr.GetInt32(0));
+                        GetEventAttendee(eventModel, dr.GetInt32(0));
                         eventModel.EventId = dr.GetInt32(0);
                         eventModel.EventName = dr.GetString(1);
                         DateTime date = DateTime.Parse(dr.GetString(2));
@@ -118,7 +113,7 @@ namespace TrainingLab.Services
             }
         }
 
-        public void GetEventAttendee(int i, EventModel eventModel, int eventId)
+        public void GetEventAttendee(EventModel eventModel, int eventId)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader sQLiteDataReader = null;

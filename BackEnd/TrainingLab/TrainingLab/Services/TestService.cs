@@ -42,6 +42,7 @@ namespace TrainingLab.Services
             SQLiteCommand cmd = new SQLiteCommand();
             TestController.recordKey = "Level_" + DateTime.Now.ToString("yyyyMMdd_hh");
             List<LevelModel> levelModels;
+            LevelModel levelModel;
             IDistributedCache cache = TestController._distributedCache;
             loadLocation = null;
             string recordKey = TestController.recordKey;
@@ -56,16 +57,15 @@ namespace TrainingLab.Services
                     con.Open();
                     cmd.CommandText = "select * from Level";
                     SQLiteDataReader sQLiteDataReader = cmd.ExecuteReader();
-                    int i = 0;
                     levelModels = new List<LevelModel>();
                     if (sQLiteDataReader.HasRows)
                     {
                         while (sQLiteDataReader.Read())
                         {
-                            levelModels.Add(new LevelModel());
-                            levelModels[i].levelId = sQLiteDataReader.GetInt32(0);
-                            levelModels[i].levelName = sQLiteDataReader.GetString(1);
-                            i++;
+                            levelModel=new LevelModel();
+                            levelModel.levelId = sQLiteDataReader.GetInt32(0);
+                            levelModel.levelName = sQLiteDataReader.GetString(1);
+                            levelModels.Add(levelModel);
                         }
                     }
                     sQLiteDataReader.Close();
@@ -99,14 +99,15 @@ namespace TrainingLab.Services
         public async Task<List<CourseModel>> GetCourseDetails()
         {
             SQLiteCommand cmd = new SQLiteCommand();
-            List<CourseModel> courseModel;
+            List<CourseModel> courseModels;
+            CourseModel courseModel;
             IDistributedCache cache = TestController._distributedCache;
             loadLocation = null;
             string recordKey = TestController.recordKey;
             //Getting data from cache
-            courseModel = null;
+            courseModels = null;
             //courseModel=await cache.GetRecordAsync<List<CourseModel>>(recordKey);
-            if (courseModel is null)
+            if (courseModels is null)
             {
                 try
                 {
@@ -114,18 +115,17 @@ namespace TrainingLab.Services
                     con.Open();
                     cmd.CommandText = "select * from Course";
                     SQLiteDataReader sQLiteDataReader = cmd.ExecuteReader();
-                    int i = 0;
-                    courseModel = new List<CourseModel>();
+                    courseModels = new List<CourseModel>();
                     if (sQLiteDataReader.HasRows)
                     {
                         while (sQLiteDataReader.Read())
                         {
-                            courseModel.Add(new CourseModel());
-                            courseModel[i].courseId = int.Parse(sQLiteDataReader["Id"].ToString());
-                            courseModel[i].courseName = sQLiteDataReader["CourseName"].ToString();
-                            courseModel[i].authorName = sQLiteDataReader["AuthorName"].ToString();
-                            courseModel[i].imageURL = sQLiteDataReader["ImageURL"].ToString();
-                            i++;
+                            courseModel=new CourseModel();
+                            courseModel.courseId = int.Parse(sQLiteDataReader["Id"].ToString());
+                            courseModel.courseName = sQLiteDataReader["CourseName"].ToString();
+                            courseModel.authorName = sQLiteDataReader["AuthorName"].ToString();
+                            courseModel.imageURL = sQLiteDataReader["ImageURL"].ToString();
+                            courseModels.Add(courseModel);
                         }
                     }
                     sQLiteDataReader.Close();
@@ -134,11 +134,11 @@ namespace TrainingLab.Services
                     isCacheData = "";
                     //Setting data in cache
                     //await cache.SetRecordAsync(recordKey, courseModel);
-                    return courseModel;
+                    return courseModels;
                 }
                 catch (Exception e)
                 {
-                    return courseModel;
+                    return courseModels;
                 }
                 finally
                 {
@@ -151,7 +151,7 @@ namespace TrainingLab.Services
                 loadLocation = "Loaded from cache at" + DateTime.Now;
                 Console.WriteLine(loadLocation);
                 isCacheData = "data";
-                return courseModel;
+                return courseModels;
             }
         }
 
@@ -159,60 +159,58 @@ namespace TrainingLab.Services
         public async Task<List<QuestionnaireModel>> GetQuestionnaires(string id, string levelName)
         {
             SQLiteCommand cmd = new SQLiteCommand();
-            List<QuestionnaireModel> questionnaireModel;
+            List<QuestionnaireModel> questionnaireModels;
+            QuestionnaireModel questionnaireModel;
             IDistributedCache cache = TestController._distributedCache;
             loadLocation = null;
             string recordKey = TestController.recordKey;
             //Getting data from cache
-            questionnaireModel = null;
+            questionnaireModels = null;
             //questionnaireModel=await cache.GetRecordAsync<List<QuestionnaireModel>>(recordKey);
-            if (questionnaireModel is null)
+            if (questionnaireModels is null)
             {
                 try
                 {
                     cmd.Connection = con;
                     con.Open();
                     cmd.CommandText = "select q.Id,t.Id,q.NoOfOptions,l.LevelName,q.QuestionText,q.TypeOfQuestion from Test t inner join Course c on c.Id=t.CourseId inner join Questionnaire q on t.Id=q.TestId inner join Level l on l.Id=t.LevelId where c.Id='" + id + "' and l.LevelName='" + levelName + "'";
-                    SQLiteDataReader dr = cmd.ExecuteReader();
-                    int i = 0;
-                    questionnaireModel = new List<QuestionnaireModel>();
+                    SQLiteDataReader dr = cmd.ExecuteReader();                    
+                    questionnaireModels = new List<QuestionnaireModel>();
                     if (dr.HasRows)
                     {
                         while (dr.Read())
                         {
-                            questionnaireModel.Add(new QuestionnaireModel());
-                            questionnaireModel[i].questionId = dr.GetInt32(0);
-                            questionnaireModel[i].testId = dr.GetInt32(1);
-                            questionnaireModel[i].question = dr.GetString(4);
-                            questionnaireModel[i].typeOfQuestion = dr.GetString(5);
-                            questionnaireModel[i].noOfOptions = dr.GetInt32(2);
+                            questionnaireModel=new QuestionnaireModel();
+                            questionnaireModel.questionId = dr.GetInt32(0);
+                            questionnaireModel.testId = dr.GetInt32(1);
+                            questionnaireModel.question = dr.GetString(4);
+                            questionnaireModel.typeOfQuestion = dr.GetString(5);
+                            questionnaireModel.noOfOptions = dr.GetInt32(2);
                             SQLiteCommand cmdd = new SQLiteCommand();
                             cmdd.Connection = con;
 
-                            cmdd.CommandText = "select * from Options where QuestionId='" + questionnaireModel[i].questionId + "'";
+                            cmdd.CommandText = "select * from Options where QuestionId='" + questionnaireModel.questionId + "'";
                             SQLiteDataReader sQLiteDataReader = cmdd.ExecuteReader();
-                            OptionModel[] optionModel = new OptionModel[questionnaireModel[i].noOfOptions];
-                            
+                            OptionModel optionModel; //new OptionModel[questionnaireModel.noOfOptions];
+                            List<OptionModel> optionModels = new List<OptionModel>();
                             if (sQLiteDataReader.HasRows)
                             {
                                 while (sQLiteDataReader.Read())
                                 {
                                     int j = 0;
-                                    while (j < questionnaireModel[i].noOfOptions)
+                                    while (j < questionnaireModel.noOfOptions)
                                     {
-                                        optionModel[j] = new OptionModel();
-                                        optionModel[j].option = sQLiteDataReader.GetString(j+1);
-                                        optionModel[j].optionId = sQLiteDataReader.GetInt32(0);
-                                        j++;
+                                        optionModel = new OptionModel();
+                                        optionModel.option = sQLiteDataReader.GetString(j+1);
+                                        optionModel.optionId = sQLiteDataReader.GetInt32(0);
+                                        optionModels.Add(optionModel);
                                     }
-                                  
-                                    //optionModel[i].questionId = sQLiteDataReader.GetInt32(5);
                                 }
                             }
                             sQLiteDataReader.Close();
                             cmdd.Dispose();
-                            questionnaireModel[i].optionList = optionModel;
-                            i++;
+                            questionnaireModel.optionList = optionModels;
+                            questionnaireModels.Add(questionnaireModel);
                         }
                     }
                     dr.Close();
@@ -221,11 +219,11 @@ namespace TrainingLab.Services
                     isCacheData = "";
                     //Setting data in cache
                     //await cache.SetRecordAsync(recordKey, questionnaireModel);
-                    return questionnaireModel;
+                    return questionnaireModels;
                 }
                 catch (Exception e)
                 {
-                    return questionnaireModel;
+                    return questionnaireModels;
                 }
                 finally
                 {
@@ -238,7 +236,7 @@ namespace TrainingLab.Services
                 loadLocation = "Loaded from cache at" + DateTime.Now;
                 Console.WriteLine(loadLocation);
                 isCacheData = "data";
-                return questionnaireModel;
+                return questionnaireModels;
             }
         }
 
@@ -351,7 +349,7 @@ namespace TrainingLab.Services
                 int i = 0, rowsAffected = 0;
                 while (i < questionnaireModels.Length)
                 {
-                    OptionModel[] optionModel =questionnaireModels[i].optionList;
+                    List<OptionModel> optionModel =questionnaireModels[i].optionList;
                     cmd.CommandText = "INSERT INTO Questionnaire(QuestionText,TypeOfQuestion,CorrectAnswer,NoOfOptions,TestId) VALUES('" + questionnaireModels[i].question + "','" + questionnaireModels[i].typeOfQuestion + "','" + questionnaireModels[i].answer + "','" +questionnaireModels[i].noOfOptions+"','"+ questionnaireModels[i].testId + "')";
                     rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected < 0)
@@ -384,7 +382,7 @@ namespace TrainingLab.Services
             }
         }
 
-        public bool AddOptions(OptionModel[] optionModel,int questionId)
+        public bool AddOptions(List<OptionModel> optionModel,int questionId)
         {
             SQLiteCommand cmd = new SQLiteCommand();
             try
@@ -392,7 +390,7 @@ namespace TrainingLab.Services
                 cmd.Connection = con;
            
                 int  rowsAffected = 0;
-                if (optionModel.Length > 2)
+                if (optionModel.Count > 2)
                 {
                     cmd.CommandText = "INSERT INTO Options(OptionA,OptionB,OptionC,OptionD,QuestionId) VALUES('" + optionModel[0].option + "','" + optionModel[1].option + "','" + optionModel[2].option + "','" + optionModel[3].option + "','" + questionId + "')";
                 }
