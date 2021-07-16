@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 function navbarIcon(props) {
 
-    const state = useSelector(state => state.change)
+    const state = useSelector(state => state.userNameReducer)
     const [nav, openNav] = useState(false)
     const changer = () => {
         if (nav) {
@@ -14,7 +14,6 @@ function navbarIcon(props) {
             openNav(true)
         }
     }
-
 
     return (
 
@@ -49,8 +48,14 @@ function navbarIcon(props) {
                     <div className={`fixed flex flex-col top-0 right-0 ${nav ? "w-64" : "w-0"} bg-white h-full border-r duration-300`}>
                         <div className="overflow-y-auto overflow-x-hidden flex-grow">
 
+
                             <ul className="flex flex-col py-4 space-y-1 mt-5">
-                                <div className="my-2  py-2 px-8">Welcome,{state}</div>
+                                <li className="px-5">
+                                    <div className="flex flex-row items-center h-8">
+                                        <div className="text-sm font-light tracking-wide text-gray-500">Welcome,{state}</div>
+                                    </div>
+                                </li>
+
                                 <li className="px-5">
                                     <div className="flex flex-row items-center h-8">
                                         <div className="text-sm font-light tracking-wide text-gray-500">Menu</div>

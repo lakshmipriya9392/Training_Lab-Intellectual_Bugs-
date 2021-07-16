@@ -3,15 +3,16 @@ import { Link, useHistory } from 'react-router-dom'
 import axios from "axios"
 import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
-import { testIdSetting } from './../redux/TestIdGet'
+import { courseNum } from '../Redux/Course/courseActions'
 import { useDispatch } from 'react-redux'
 
 function TestPage() {
     const dispatch = useDispatch()
-    const nameShow = useSelector(state => state.change)
-    const statmail = useSelector(state => state.change3)
-    const state = useSelector(state => state.change4)
-    const stateSec = useSelector(state => state.change5)
+    const nameShow = useSelector(state => state.userNameReducer)
+    const statmail = useSelector(state => state.emailIdReducer)
+    const state = useSelector(state => state.testIdReducer)
+    const stateSec = useSelector(state => state.difficultyReducer)
+    // console.log(state)
     const [arrLen, setArrLen] = useState(0)
     const [data, setData] = useState(
         {
@@ -25,6 +26,7 @@ function TestPage() {
     const [answers, setAnswers] = useState('')
     const [correctAns, setCorrectAns] = useState("")
     const [response, setResponse] = useState()
+
     const getQuestions = () => {
         axios.get(`https://localhost:5001/test?id=${state}&levelName=${stateSec}`)
             .then((res) => {
@@ -46,7 +48,7 @@ function TestPage() {
                 }
                 else {
                     setData(TestData)
-                    dispatch(testIdSetting(res.data[num].testId))
+                    dispatch(courseNum(res.data[num].testId))
                 }
 
             }).catch((err) => { console.log(`Error : ${err}`) })

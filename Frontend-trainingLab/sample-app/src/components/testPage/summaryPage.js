@@ -6,9 +6,9 @@ import Duck from './../../assets/animation_640_kr36bvfc.gif'
 import axios from 'axios'
 
 const SummaryPage = () => {
-    const nameShow = useSelector(state => state.change)
-    const emailShow = useSelector(state => state.change3)
-    const testId = useSelector(state => state.change6)
+    const nameShow = useSelector(state => state.userNameReducer)
+    const emailShow = useSelector(state => state.emailIdReducer)
+    const testId = useSelector(state => state.testIdReducer)
     const [data, setData] = useState({})
 
     const getScore = () => {

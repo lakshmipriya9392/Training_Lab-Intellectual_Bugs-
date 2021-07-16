@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import Navbar from '../navbar/navbar'
+import Navbar from '../Navbar/navbar'
 import { motion } from 'framer-motion'
-import NavIcon from '../navbar icons/navbarIcon'
-import Accordion from './Course components/Accordion'
-import Footer from '../footer/footer'
+import NavIcon from '../navbarIcons/navbarIcon'
+import Accordion from './courseComponents/Accordion'
+import Footer from '../Footer/footer'
 import axios from 'axios'
 import './../../App.css'
 import { useSelector } from 'react-redux'
 
 const ReactPage = () => {
-    const state = useSelector(state => state.change2)
+    const state = useSelector(state => state.courseNameReducer)
     const [nav, openNav] = useState(false)
     const changer = () => {
         if (nav) {

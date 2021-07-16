@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './../../App.css'
-import Navbar from './../navbar/navbar'
-import NavIcon from './../navbar icons/navbarIcon'
-import Accordion from './../courses page/Course components/Accordion'
+import Navbar from '../Navbar/navbar'
+import NavIcon from '../navbarIcons/navbarIcon'
+import Accordion from './../coursesPage/courseComponents/Accordion'
 import Button from './eventButton'
-import Footer from './../footer/footer'
+import Footer from '../Footer/footer'
 import axios from 'axios'
 import EventIcon from '@material-ui/icons/Event';
 import ShareIcon from '@material-ui/icons/Share';
@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 
 
 function EventPage() {
-    const state = useSelector(state => state.change3)
+    const state = useSelector(state => state.emailIdReducer)
     const url = "https://localhost:5001/";
     const [events, setEvents] = useState([])
     const [futureEvents, setFutureEvents] = useState([])

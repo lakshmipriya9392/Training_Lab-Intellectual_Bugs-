@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./../navbar/navbar";
+import Navbar from "./../Navbar/navbar";
 import "./../../App.css";
-import NavIcon from "./../navbar icons/navbarIcon";
-import Accordion from "./../courses page/Course components/Accordion";
+import NavIcon from "./../navbarIcons/navbarIcon";
+import Accordion from "./../coursesPage/courseComponents/Accordion";
 import SideImage from "./../../assets/animation_640_kr4k95pb.gif";
-import Footer from "./../footer/footer";
+import Footer from "./../Footer/footer";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { difficultySetting } from "./../redux/courseDifficultyGet";
-import { courseSelector } from "../redux/courseNameGet";
+import { testIdSetting } from "../Redux/Test/testActions";
+import { difficultySetting } from "../Redux/Course/courseActions";
 import axios from "axios";
 
 function TestSelectionPage() {
@@ -68,7 +68,7 @@ function TestSelectionPage() {
                                 {subArr.map((prop) => {
                                     const click = () => {
                                         setCourse(prop.courseName);
-                                        dispatch(courseSelector(prop.courseId));
+                                        dispatch(testIdSetting(prop.courseId));
                                     };
                                     return (
                                         <div

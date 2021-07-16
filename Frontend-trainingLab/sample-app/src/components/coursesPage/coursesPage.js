@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './../../App.css'
-import Navbar from './../navbar/navbar'
+import Navbar from '../Navbar/navbar'
 import { motion } from 'framer-motion'
 import { useHistory } from "react-router-dom"
-import NavIcon from './../navbar icons/navbarIcon'
-import Footer from './../footer/footer'
+import NavIcon from '../navbarIcons/navbarIcon'
+import Footer from '../Footer/footer'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { courseNum } from './../redux/courseNumGet'
+import { courseSelector } from '../Redux/Course/courseActions'
 
 function CoursesPage() {
 
@@ -41,7 +41,7 @@ function CoursesPage() {
                 {courses.map((data) => {
                     const pusher = () => {
                         history.push(`/courses/courseMainPage`)
-                        dispatch(courseNum(data.courseId))
+                        dispatch(courseSelector(data.courseId))
                     }
                     return (
                         <motion.div
