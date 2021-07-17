@@ -15,6 +15,8 @@ function SignIn() {
     const [emailErr, setEmailErr] = useState({})
     const [passwordErr, setPasswordErr] = useState({})
     const [loginSuccess, setLoginSuccess] = useState(true)
+    var emailValidator = require('email-validator')
+    var passwordValidator = require('password-validator')
     var crypto = require('crypto')
 
     const SubmitForm = (e) => {
@@ -53,28 +55,21 @@ function SignIn() {
         }
     }
     const validation = () => {
+        const schema = new passwordValidator()
+        const digitChecker = schema.has().digits(1)
         const emailError = {}
         const passwordError = {}
         let valid = true
-        if (!email.includes("@")) {
-            emailError.Error = 'You email must contain @'
+        if (!emailValidator.validate(email)) {
+            emailError.Error = "Please enter a valid email"
             valid = false
         }
-        //We have to change this code
-        if ((!(password.includes("1"))) &&
-            (!(password.includes("2"))) &&
-            (!(password.includes("3"))) &&
-            (!(password.includes("4"))) &&
-            (!(password.includes("5"))) &&
-            (!(password.includes("6"))) &&
-            (!(password.includes("7"))) &&
-            (!(password.includes("8"))) &&
-            (!(password.includes("9"))) &&
-            (!(password.includes("0")))
-        ) {
-            passwordError.Error = 'Your password must contain number/s'
+
+        if (!digitChecker.validate(password)) {
+            passwordError.Error = 'Password must contain atleast one number'
             valid = false
         }
+
         setEmailErr(emailError)
         setPasswordErr(passwordError)
         return valid

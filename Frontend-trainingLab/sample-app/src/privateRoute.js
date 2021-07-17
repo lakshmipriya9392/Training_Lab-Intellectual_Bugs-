@@ -8,7 +8,7 @@ const Protection = (props) => {
     console.log(state.includes("@"))
     const Comp = props.comp
     useEffect(() => {
-        if (!state.includes("@")) {
+        if (!state.length > 3) {
             history.push("/signin")
         }
 
