@@ -32,9 +32,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return Ok(new { result = "Couldn't insert data" });
+            return NoContent();
 
         }
 
@@ -45,9 +43,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;            
-            return (IActionResult)Response;
-            //return NoContent(new { result = "Couldn't update data" });
+            return NoContent();
         }
 
         [HttpPost("topics")]
@@ -57,9 +53,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return Ok(new { result = "Couldn't insert data" });
+            return NoContent();
         }
 
         [HttpPut("topics")]
@@ -69,9 +63,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return Ok(new { result = "Couldn't update data" });
+            return NoContent();
         }
     }
 }

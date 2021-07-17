@@ -28,7 +28,7 @@ namespace TrainingLab.Controllers
                     message = "User with such email already exists!"
                 });
             }
-            catch (Exception e) { return Unauthorized(e); }
+            catch (Exception e) { return Unauthorized(new { error = e }); }
         }
 
         //signin
@@ -38,6 +38,8 @@ namespace TrainingLab.Controllers
             try
             {
                 bool result = UserService.Instance.SignIn(userModel);
+                string userName = UserService.Instance.userName;
+                UserService.Instance.userName = null;
                 if (result == false)
                 {
                     return Unauthorized(new
@@ -51,11 +53,12 @@ namespace TrainingLab.Controllers
                     return Ok(new
                     {
                         result = "True",
-                        name = UserService.Instance.userName
+                        name = userName
+
                     });
                 }
             }
-            catch (Exception e) { return Unauthorized(e); }
+            catch (Exception e) { return Unauthorized(new { error = e }); }
         }
     }
 }

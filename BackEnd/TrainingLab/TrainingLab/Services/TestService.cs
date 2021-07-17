@@ -199,6 +199,7 @@ namespace TrainingLab.Services
                                         optionModel = new OptionModel();
                                         optionModel.option = sQLiteDataReader.GetString(j+1);
                                         optionModel.optionId = sQLiteDataReader.GetInt32(0);
+                                        j++;
                                         optionModels.Add(optionModel);
                                     }
                                 }
@@ -407,7 +408,6 @@ namespace TrainingLab.Services
             finally
             {
                 cmd.Dispose();
-                con.Close();
             }
         }
     }

@@ -30,9 +30,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return (new { result = "Couldn't insert data" });
+            return NoContent();
         }
 
         [HttpPut("event")]
@@ -42,9 +40,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return Ok(new { result = "Couldn't update data" });
+            return NoContent();
         }
 
         [HttpDelete("event")]
@@ -54,9 +50,7 @@ namespace TrainingLab.Controllers
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return Ok(new { result = "Couldn't delete data" });
+            return NoContent();
         }
 
         [HttpPost("attendee")]
@@ -64,17 +58,13 @@ namespace TrainingLab.Controllers
         {
             if(eventAttendeeModel.eventId<=0 || eventAttendeeModel.emailId=="")
             {
-                Response.StatusCode = 204;
-                return (IActionResult)Response;
-                //return Ok(new { result = "Couldn't insert data" });
+                return NoContent();
             }
             if (EventService.Instance.AddAttendee(eventAttendeeModel))
             {
                 return Ok();
             }
-            Response.StatusCode = 204;
-            return (IActionResult)Response;
-            //return Ok(new { result = "Couldn't insert data" });
+            return NoContent();
         }
     }
 }

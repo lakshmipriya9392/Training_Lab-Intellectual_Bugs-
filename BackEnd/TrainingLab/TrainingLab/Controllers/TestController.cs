@@ -56,9 +56,7 @@ namespace TrainingLab.Controllers
             }
             catch(Exception e)
             {
-                Response.StatusCode = 204;
-                return (IActionResult)Response;
-                //return Ok(e);
+                return NoContent();
             }
         }
 
@@ -75,15 +73,11 @@ namespace TrainingLab.Controllers
                     ClearScore();
                     return Ok(new { totalQuestion = totalCorrectAnswer + totalWrongAnswer, totalCorrectAnswer = totalCorrectAnswer, totalWrongAnswer = totalWrongAnswer, score = score });
                 }
-                Response.StatusCode = 204;
-                return (IActionResult)Response;
-                //return Ok(new { result = "something gone wrong!" });
+                return NoContent();
             }
             catch(Exception e)
             {
-                Response.StatusCode = 204;
-                return (IActionResult)Response;
-                //return Ok(e);
+                return NoContent();
             }
         }
 
@@ -97,15 +91,11 @@ namespace TrainingLab.Controllers
                 {
                     return Ok(new { result = "success" });
                 }
-                Response.StatusCode = 204;
-                return (IActionResult)Response;
-                //return Ok(new { result = "something gone wrong!" });
+                return NoContent();
             }
             catch(Exception e)
             {
-                Response.StatusCode = 204;
-                return (IActionResult)Response;
-                //return Ok(e);
+                return NoContent();
             }
         }
 
