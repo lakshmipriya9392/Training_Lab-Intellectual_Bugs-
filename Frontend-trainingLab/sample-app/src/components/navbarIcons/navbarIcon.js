@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { emailsender } from './../redux/form/formAction'
 
 function navbarIcon(props) {
-
+    const dispatch = useDispatch()
     const state = useSelector(state => state.userNameReducer)
     const [nav, openNav] = useState(false)
     const changer = () => {
@@ -33,7 +35,7 @@ function navbarIcon(props) {
                     <div className="my-auto">Hello, {state}</div>
                     <div className="my-auto">
                         <Link to='/'>
-                            <div className="scale-150 md:scale-100 text-white  mx-5 md:text-xl text-lg cursor-pointer border-white border-2 py-1 px-2 rounded-lg hover:text-black hover:bg-white duration-200">Logout</div>
+                            <div className="scale-150 md:scale-100 text-white  mx-5 md:text-xl text-lg cursor-pointer border-white border-2 py-1 px-2 rounded-lg hover:text-black hover:bg-white duration-200" onClick={() => dispatch(emailsender(""))}>Logout</div>
                         </Link>
                     </div>
                 </div>
@@ -97,7 +99,9 @@ function navbarIcon(props) {
                                 </li>
                                 <Link to='/'>
                                     <div
-                                        className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                                        className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                                        onClick={() => dispatch(emailsender(""))}
+                                    >
                                         <span className="inline-flex justify-center items-center ml-4">
                                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">

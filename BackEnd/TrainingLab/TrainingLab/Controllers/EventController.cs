@@ -9,7 +9,6 @@ namespace TrainingLab.Controllers
     [Route("[controller]")]
     public class EventController : Controller
     {
-
         [HttpGet]
         public async Task<IActionResult> GetEvents()        
         {            
@@ -57,8 +56,9 @@ namespace TrainingLab.Controllers
         public IActionResult AddAttendee([FromBody] EventAttendeeModel eventAttendeeModel)
         {
             if(eventAttendeeModel.eventId<=0 || eventAttendeeModel.emailId=="")
+
             {
-                return NoContent();
+                return NoContent();            
             }
             if (EventService.Instance.AddAttendee(eventAttendeeModel))
             {

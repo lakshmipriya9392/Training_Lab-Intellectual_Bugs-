@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import Navbar from '../Navbar/navbar'
+import Navbar from '../navbar/navbar'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { emailsender } from '../Redux/Form/formAction'
-import { nameDisplay } from '../Redux/Form/formAction'
+import { emailsender } from '../redux/form/formAction'
+import { nameDisplay } from '../redux/form/formAction'
 
 function SignUp() {
 
@@ -20,8 +20,10 @@ function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [confirmPasswordErr, setConfirmPasswordErr] = useState({})
     const [loginSuccess, setLoginSuccess] = useState(false)
-
+    var emailValidator = require('email-validator')
+    var passwordValidator = require('password-validator')
     var crypto = require('crypto');
+
     const SubmitForm = (e) => {
         e.preventDefault()
         const isValid = validation()
@@ -62,8 +64,12 @@ function SignUp() {
         }
     }
 
-
     const validation = () => {
+
+        const schema = new passwordValidator()
+        const lengthOfPassword = schema.is().min(8)
+        const digitChecker = schema.has().digits(1)
+
         const nameError = {}
         const emailError = {}
         const passwordError = {}
@@ -73,27 +79,18 @@ function SignUp() {
             nameError.Error = "Name is too short"
             valid = false
         }
-        if (!email.includes("@")) {
-            emailError.Error = "Email must contain @"
+        if (!emailValidator.validate(email)) {
+            emailError.Error = "Please enter a valid email"
             valid = false
         }
-        if (password.length < 8) {
+
+        if (!lengthOfPassword.validate(password)) {
             passwordError.Error = 'Password length is too short'
             valid = false
         }
-        //We have to change this code
-        if ((!(password.includes("1"))) &&
-            (!(password.includes("2"))) &&
-            (!(password.includes("3"))) &&
-            (!(password.includes("4"))) &&
-            (!(password.includes("5"))) &&
-            (!(password.includes("6"))) &&
-            (!(password.includes("7"))) &&
-            (!(password.includes("8"))) &&
-            (!(password.includes("9"))) &&
-            (!(password.includes("0")))
-        ) {
-            passwordError.Error = 'Password must contain number/s'
+
+        if (!digitChecker.validate(password)) {
+            passwordError.Error = 'Password must contain atleast one number'
             valid = false
         }
         if (password !== confirmPassword) {
@@ -153,3 +150,12 @@ function SignUp() {
 }
 
 export default SignUp
+
+// const passwordValidator = require('password-validator')
+// const schema = new passwordValidator()
+// schema.is().min(8)
+// console.log(schema.validate('gdsdsgdfg346232'))
+
+// var validator = require("email-validator");
+
+// validator.validate("test@email.com");

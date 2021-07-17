@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './../../App.css'
-import Navbar from '../Navbar/navbar'
+import Navbar from '../navbar/navbar'
 import NavIcon from '../navbarIcons/navbarIcon'
 import Accordion from './../coursesPage/courseComponents/Accordion'
 import Button from './eventButton'
-import Footer from '../Footer/footer'
+import Footer from '../footer/footer'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import EventCard from './eventCard'
@@ -28,7 +28,7 @@ function EventPage() {
     }
 
     const getFutureEvents = () => {
-        axios.get(`${url}event/FutureEvents`)
+        axios.get(`${url}event/futureEvents`)
             .then((response) => {
                 const allEvents = response.data;
                 setFutureEvents(allEvents);
@@ -42,7 +42,7 @@ function EventPage() {
     }
 
     const sendBookingData = () => {
-        axios.post("https://localhost:5001/event/addattendee", details)
+        axios.post("https://localhost:5001/event/attendee", details)
             .then((res) => {
                 console.log(res)
             }).catch((err) => {

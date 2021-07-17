@@ -4,9 +4,9 @@ import TestImage from './../../assets/TestImage.png'
 import EventImage from './../../assets/EventImage.jpg'
 import NavIcon from '../navbarIcons/navbarIcon'
 import { motion } from 'framer-motion'
-import Navbar from '../Navbar/navbar'
+import Navbar from '../navbar/navbar'
 import { Link } from 'react-router-dom'
-import Footer from '../Footer/footer'
+import Footer from '../footer/footer'
 
 function SelectionPage() {
     return (

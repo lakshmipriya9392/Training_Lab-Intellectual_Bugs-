@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import axios from "axios"
 import { useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
-import { courseNum } from '../Redux/Course/courseAction'
+import { courseNum } from '../redux/course/courseAction'
 import { useDispatch } from 'react-redux'
 
 function TestPage() {

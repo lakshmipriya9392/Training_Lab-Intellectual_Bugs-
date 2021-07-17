@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import './../../App.css'
-import Navbar from '../Navbar/navbar'
+import Navbar from '../navbar/navbar'
 import { motion } from 'framer-motion'
 import { useHistory } from "react-router-dom"
 import NavIcon from '../navbarIcons/navbarIcon'
-import Footer from '../Footer/footer'
+import Footer from '../footer/footer'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { courseSelector } from '../Redux/Course/courseAction'
+import { courseSelector } from '../redux/course/courseAction'
 
 function CoursesPage() {
 
