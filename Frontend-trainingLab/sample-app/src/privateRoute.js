@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-const Protection = (props) => {
+const PrivateRoute = (props) => {
     const history = useHistory()
     const state = useSelector(state => state.emailIdReducer)
     console.log(state.includes("@"))
@@ -20,5 +20,5 @@ const Protection = (props) => {
     )
 }
 
-export default Protection
+export default PrivateRoute
 
